@@ -50,7 +50,11 @@ class LoginScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+<<<<<<< HEAD
                       Text("Don’t have an account ? "),
+=======
+                      Text("Don’t have an account ? ",style: Theme.of(context).textTheme.labelSmall,),
+>>>>>>> login-screen
                       CustomTextButton(hintText: "Signup"),
                     ],
                   ),
