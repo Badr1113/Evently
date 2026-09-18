@@ -2,11 +2,44 @@ import 'package:evently/core/Widget/custom_elevated_button.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
+import 'package:evently/core/sourses/routes_manager.dart';
+import 'package:evently/core/sourses/validator.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const new({super.key});
+class RegisterScreen extends StatefulWidget {
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  late TextEditingController nameController;
+
+  late TextEditingController emailController;
+
+  late TextEditingController passwordController;
+
+  late TextEditingController conformationPasswordController;
+
+  GlobalKey<FormState> _formState = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    conformationPasswordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    conformationPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,33 +62,54 @@ class RegisterScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               SizedBox(height: 24),
-              Column(
-                children: [
-                  CustomOutlinedTextFeild(
-                    hintText: "Enter your name",
-                    prefixIcon: Icon(Icons.person_outline_sharp),
-                  ),
-                  SizedBox(height: 16),
-                  CustomOutlinedTextFeild(
-                    hintText: "Enter your email",
-                    prefixIcon: Icon(Icons.email_outlined),
-                  ),
-                  SizedBox(height: 16),
-                  CustomOutlinedTextFeild(
-                    hintText: "Enter your password",
-                    prefixIcon: Icon(Icons.lock_outline),
-                    suffixIcon: Icon(Icons.visibility_off),
-                  ),
-                  SizedBox(height: 16),
-                  CustomOutlinedTextFeild(
-                    hintText: "Confirm your password",
-                    prefixIcon: Icon(Icons.lock_outline),
-                    suffixIcon: Icon(Icons.visibility_off),
-                  ),
-                ],
+              Form(
+                key: _formState,
+                child: Column(
+                  children: [
+                    CustomOutlinedTextFeild(
+                      validator: Validator.validateName,
+                      controller: nameController,
+                      hintText: "Enter your name",
+                      prefixIcon: Icon(Icons.person_outline_sharp),
+                    ),
+                    SizedBox(height: 16),
+                    CustomOutlinedTextFeild(
+                      validator: Validator.validateEmail,
+                      controller: emailController,
+                      hintText: "Enter your email",
+                      prefixIcon: Icon(Icons.email_outlined),
+                    ),
+                    SizedBox(height: 16),
+                    CustomOutlinedTextFeild(
+                      validator: Validator.validatePassword,
+                      controller: passwordController,
+                      hintText: "Enter your password",
+                      prefixIcon: Icon(Icons.lock_outline),
+                      suffixIcon: Icon(Icons.visibility_off),
+                    ),
+                    SizedBox(height: 16),
+                    CustomOutlinedTextFeild(
+                      validator: (input) {
+                        if (input == null || input.trim().isEmpty) {
+                          return "This Field Is Required";
+                        }
+                        if (input != passwordController.text.toString()) {
+                          return "Not Matching";
+                        }
+                      },
+                      controller: conformationPasswordController,
+                      hintText: "Confirm your password",
+                      prefixIcon: Icon(Icons.lock_outline),
+                      suffixIcon: Icon(Icons.visibility_off),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 52),
-              CustomElevatedButton(hintText: "Sign up"),
+              CustomElevatedButton(
+                hintText: "Sign up",
+                onPressed: _createAccount,
+              ),
               SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +118,15 @@ class RegisterScreen extends StatelessWidget {
                     "Already have an account? ",
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
-                  CustomTextButton(hintText: "Login"),
+                  CustomTextButton(
+                    hintText: "Login",
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        RoutesManager.loginScreen,
+                      );
+                    },
+                  ),
                 ],
               ),
               SizedBox(height: 32),
@@ -101,5 +163,11 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _createAccount() {
+    if (_formState.currentState!.validate()) {
+      return;
+    }
   }
 }

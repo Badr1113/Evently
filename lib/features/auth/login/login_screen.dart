@@ -2,6 +2,7 @@ import 'package:evently/core/Widget/custom_elevated_button.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
+import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 
@@ -40,22 +41,32 @@ class LoginScreen extends StatelessWidget {
                   CustomOutlinedTextFeild(
                     hintText: 'Enter your password',
                     prefixIcon: Icon(Icons.lock_outline),
-                    suffixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.visibility)),
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.visibility),
+                    ),
                   ),
                   SizedBox(height: 8),
-                  CustomTextButton(hintText: "Forget Password?"),
+                  CustomTextButton(hintText: "Forget Password?", onTap: () {}),
                   SizedBox(height: 48),
                   CustomElevatedButton(hintText: "Login"),
                   SizedBox(height: 48),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-<<<<<<< HEAD
-                      Text("Don’t have an account ? "),
-=======
-                      Text("Don’t have an account ? ",style: Theme.of(context).textTheme.labelSmall,),
->>>>>>> login-screen
-                      CustomTextButton(hintText: "Signup"),
+                      Text(
+                        "Don’t have an account ? ",
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                      CustomTextButton(
+                        hintText: "Signup",
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            RoutesManager.registerScreen,
+                          );
+                        },
+                      ),
                     ],
                   ),
                   SizedBox(height: 32),

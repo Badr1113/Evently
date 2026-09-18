@@ -7,13 +7,21 @@ class CustomOutlinedTextFeild extends StatelessWidget {
     required this.hintText,
     this.prefixIcon,
     this.suffixIcon,
+    this.controller,
+    this.validator,
   });
   String hintText;
   Widget? prefixIcon;
   Widget? suffixIcon;
+  TextEditingController?
+  controller; // dont forget after you finishid to make it not accept "Null"
+  String? Function(String?)?
+  validator; //dont forget after you finishid to make it not accept "Null"
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      validator: validator,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(color: ColorManager.darkGray),
@@ -27,6 +35,7 @@ class CustomOutlinedTextFeild extends StatelessWidget {
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: ColorManager.red),
+          borderRadius: BorderRadius.circular(16)
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
