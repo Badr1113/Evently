@@ -79,7 +79,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 8),
                     CustomTextButton(
                       hintText: "Forget Password?",
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutesManager.forgetPasswordScreen,
+                        );
+                      },
                     ),
                     SizedBox(height: 48),
                     CustomElevatedButton(onPressed: _login, hintText: "Login"),
