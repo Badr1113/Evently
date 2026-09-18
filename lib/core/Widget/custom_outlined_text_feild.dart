@@ -7,15 +7,15 @@ class CustomOutlinedTextFeild extends StatelessWidget {
     required this.hintText,
     this.prefixIcon,
     this.suffixIcon,
-    this.controller,
-    this.validator,
+   required this.controller,
+   required this.validator,
   });
   String hintText;
   Widget? prefixIcon;
   Widget? suffixIcon;
-  TextEditingController?
+  TextEditingController
   controller; // dont forget after you finishid to make it not accept "Null"
-  String? Function(String?)?
+  String? Function(String?)
   validator; //dont forget after you finishid to make it not accept "Null"
   @override
   Widget build(BuildContext context) {

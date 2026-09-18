@@ -3,11 +3,35 @@ import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
+import 'package:evently/core/sourses/validator.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const new({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  GlobalKey<FormState> _formstate = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,87 +47,101 @@ class LoginScreen extends StatelessWidget {
                 width: 142,
                 height: 27,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: 48),
-                  Text(
-                    "Login to your account",
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  SizedBox(height: 24),
-                  CustomOutlinedTextFeild(
-                    hintText: 'Enter your email',
-                    prefixIcon: Icon(Icons.mail_outline),
-                  ),
-                  SizedBox(height: 16),
-                  CustomOutlinedTextFeild(
-                    hintText: 'Enter your password',
-                    prefixIcon: Icon(Icons.lock_outline),
-                    suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.visibility),
+              Form(
+                key: _formstate,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 48),
+                    Text(
+                      "Login to your account",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
-                  ),
-                  SizedBox(height: 8),
-                  CustomTextButton(hintText: "Forget Password?", onTap: () {}),
-                  SizedBox(height: 48),
-                  CustomElevatedButton(hintText: "Login"),
-                  SizedBox(height: 48),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don’t have an account ? ",
-                        style: Theme.of(context).textTheme.labelSmall,
+                    SizedBox(height: 24),
+                    CustomOutlinedTextFeild(
+                      controller: emailController,
+                      hintText: 'Enter your email',
+                      prefixIcon: Icon(Icons.mail_outline),
+                      validator: Validator.validateEmail,
+                    ),
+                    SizedBox(height: 16),
+                    CustomOutlinedTextFeild(
+                      controller: passwordController,
+                      hintText: 'Enter your password',
+                      prefixIcon: Icon(Icons.lock_outline),
+                      suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.visibility),
                       ),
-                      CustomTextButton(
-                        hintText: "Signup",
-                        onTap: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            RoutesManager.registerScreen,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 32),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 1,
-                          indent: 14,
-                          endIndent: 16,
-                          color: ColorManager.offWhite,
+                      validator: Validator.validatePassword,
+                    ),
+                    SizedBox(height: 8),
+                    CustomTextButton(
+                      hintText: "Forget Password?",
+                      onTap: () {},
+                    ),
+                    SizedBox(height: 48),
+                    CustomElevatedButton(onPressed: _login, hintText: "Login"),
+                    SizedBox(height: 48),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don’t have an account ? ",
+                          style: Theme.of(context).textTheme.labelSmall,
                         ),
-                      ),
-                      Text(
-                        "Or",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: ColorManager.primaryBlue,
+                        CustomTextButton(
+                          hintText: "Signup",
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              RoutesManager.registerScreen,
+                            );
+                          },
                         ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 1,
-                          indent: 14,
-                          endIndent: 16,
-                          color: ColorManager.offWhite,
+                      ],
+                    ),
+                    SizedBox(height: 32),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            thickness: 1,
+                            indent: 14,
+                            endIndent: 16,
+                            color: ColorManager.offWhite,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        Text(
+                          "Or",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: ColorManager.primaryBlue,
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            thickness: 1,
+                            indent: 14,
+                            endIndent: 16,
+                            color: ColorManager.offWhite,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _login() {
+    _formstate.currentState!.validate();
   }
 }

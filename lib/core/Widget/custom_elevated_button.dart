@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   String hintText;
-  CustomElevatedButton({required this.hintText , this.onPressed});
-  VoidCallback? onPressed; // dont forget after you finishid to make it not accept "Null"
+  CustomElevatedButton({required this.hintText , required this.onPressed});
+  VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
