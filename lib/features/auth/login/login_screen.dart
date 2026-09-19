@@ -115,23 +115,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             thickness: 1,
                             indent: 14,
                             endIndent: 16,
-                            color: ColorManager.offWhite,
+                            color: Theme.of(context).dividerColor,
                           ),
                         ),
                         Text(
                           "Or",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: ColorManager.primaryBlue,
-                          ),
+                          style: Theme.of(context).textTheme.displaySmall!
+                              .copyWith(
+                                decoration: TextDecoration.none,
+                                fontSize: 16,
+                              ),
                         ),
                         Expanded(
                           child: Divider(
                             thickness: 1,
                             indent: 14,
                             endIndent: 16,
-                            color: ColorManager.offWhite,
+                            color: Theme.of(context).dividerColor,
                           ),
                         ),
                       ],

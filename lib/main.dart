@@ -16,7 +16,7 @@ class Evently extends StatelessWidget {
       initialRoute: RoutesManager.loginScreen,
       theme: ThemeManager.light,
       darkTheme: ThemeManager.dark,
-      themeMode: ThemeMode.light ,
+      themeMode: ThemeMode.dark ,
       locale: Locale('en'),
     );
   }

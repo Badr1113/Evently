@@ -38,14 +38,7 @@ class ForgetPasswordScreen extends StatelessWidget {
         icon: Icon(Icons.arrow_back_ios, color: ColorManager.primaryBlue),
       ),
       centerTitle: true,
-      title: Text(
-        "Forget Password",
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          color: ColorManager.black,
-          fontSize: 18,
-        ),
-      ),
+      title: Text("Forget Password"),
     );
   }
 }
