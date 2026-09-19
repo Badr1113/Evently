@@ -14,9 +14,9 @@ class CustomOutlinedTextFeild extends StatelessWidget {
   Widget? prefixIcon;
   Widget? suffixIcon;
   TextEditingController
-  controller; // dont forget after you finishid to make it not accept "Null"
+  controller; 
   String? Function(String?)
-  validator; //dont forget after you finishid to make it not accept "Null"
+  validator; 
   @override
   Widget build(BuildContext context) {
     return TextFormField(

@@ -5,6 +5,7 @@ import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/core/sourses/validator.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -35,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -54,31 +56,53 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SizedBox(height: 48),
                     Text(
-                      "Login to your account",
+                      appLocalizations.login_to_your_account,
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     SizedBox(height: 24),
                     CustomOutlinedTextFeild(
                       controller: emailController,
-                      hintText: 'Enter your email',
+                      hintText: appLocalizations.enter_your_email,
                       prefixIcon: Icon(Icons.mail_outline),
-                      validator: Validator.validateEmail,
+                      validator: (email) {
+                        RegExp emailRegExp = RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                        );
+                        if (email == null || email.trim().isEmpty) {
+                          return AppLocalizations.of(context)!
+                              .this_field_is_required;
+                        }
+                        if (!emailRegExp.hasMatch(email)) {
+                          return AppLocalizations.of(context)!.invalid_email;
+                        }
+                      },
                     ),
                     SizedBox(height: 16),
                     CustomOutlinedTextFeild(
                       controller: passwordController,
-                      hintText: 'Enter your password',
+                      hintText: appLocalizations.enter_your_password,
                       prefixIcon: Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.visibility),
+                        icon: Icon(Icons.visibility_off_outlined),
                       ),
-                      validator: Validator.validatePassword,
+                      validator: (password) {
+                        RegExp passwordRegExp = RegExp(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                        );
+                        if (password == null || password.trim().isEmpty) {
+                          return AppLocalizations.of(context)!
+                              .this_field_is_required;
+                        }
+                        if (!passwordRegExp.hasMatch(password)) {
+                          return AppLocalizations.of(context)!.invalid_password;
+                        }
+                      },
                     ),
                     SizedBox(height: 8),
                     CustomTextButton(
-                      hintText: "Forget Password?",
+                      hintText: "${appLocalizations.forget_password}؟",
                       onTap: () {
                         Navigator.pushNamed(
                           context,
@@ -87,17 +111,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     SizedBox(height: 48),
-                    CustomElevatedButton(onPressed: _login, hintText: "Login"),
+                    CustomElevatedButton(
+                      onPressed: _login,
+                      hintText: appLocalizations.login,
+                    ),
                     SizedBox(height: 48),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don’t have an account ? ",
+                          appLocalizations.dont_have_an_account,
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                         CustomTextButton(
-                          hintText: "Signup",
+                          hintText: appLocalizations.sign_up,
                           onTap: () {
                             Navigator.pushReplacementNamed(
                               context,
@@ -119,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Text(
-                          "Or",
+                          appLocalizations.or,
                           style: Theme.of(context).textTheme.displaySmall!
                               .copyWith(
                                 decoration: TextDecoration.none,

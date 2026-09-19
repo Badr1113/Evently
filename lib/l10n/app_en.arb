@@ -1,0 +1,21 @@
+{
+    "login_to_your_account" : "Login to your account",
+    "enter_your_email" : "Enter your email",
+    "enter_your_password" : "Enter your password",
+    "forget_password" : "Forget Password",
+    "login" : "Login",
+    "dont_have_an_account": "Don’t have an account ? ",
+    "sign_up" : "Signup",
+    "or" : "Or",
+    "enter_your_name" : "Enter your name",
+    "sign_up_elevated_button" : "Sign up",
+    "already_have_an_account" : "Already have an account? ",
+    "reset_password" : "Reset password",
+    "create_your_account" : "Create your account",
+    "confirm_your_password" : "Confirm your password",
+    "this_field_is_required" : "This Field Is Required",
+    "name_validator_msg" : "Name Must Be 4 or more",
+    "invalid_email" : "Invalid Email",
+    "invalid_password" : "invalid_password",
+    "not_matching" : "Not Matching"
+}

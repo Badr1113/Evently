@@ -5,6 +5,7 @@ import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/core/sourses/validator.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -43,6 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -58,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               SizedBox(height: 48),
               Text(
-                "Create your account",
+                lang.create_your_account,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               SizedBox(height: 24),
@@ -67,47 +69,82 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   children: [
                     CustomOutlinedTextFeild(
-                      validator: Validator.validateName,
+                      validator: (name) {
+                        if (name == null || name.trim().isEmpty) {
+                          return AppLocalizations.of(context)!
+                              .this_field_is_required;
+                        }
+                        if (name.length < 4) {
+                          return AppLocalizations.of(context)!
+                              .name_validator_msg;
+                        }
+                      },
                       controller: nameController,
-                      hintText: "Enter your name",
+                      hintText: lang.enter_your_name,
                       prefixIcon: Icon(Icons.person_outline_sharp),
                     ),
                     SizedBox(height: 16),
                     CustomOutlinedTextFeild(
-                      validator: Validator.validateEmail,
+                      validator: (email) {
+                        RegExp emailRegExp = RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                        );
+                        if (email == null || email.trim().isEmpty) {
+                          return AppLocalizations.of(context)!
+                              .this_field_is_required;
+                        }
+                        if (!emailRegExp.hasMatch(email)) {
+                          return AppLocalizations.of(context)!.invalid_email;
+                        }
+                      },
                       controller: emailController,
-                      hintText: "Enter your email",
+                      hintText: lang.enter_your_email,
                       prefixIcon: Icon(Icons.email_outlined),
                     ),
                     SizedBox(height: 16),
                     CustomOutlinedTextFeild(
-                      validator: Validator.validatePassword,
+                      validator: (password) {
+                        RegExp passwordRegExp = RegExp(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                        );
+                        if (password == null || password.trim().isEmpty) {
+                          return AppLocalizations.of(context)!
+                              .this_field_is_required;
+                        }
+                        if (!passwordRegExp.hasMatch(password)) {
+                          return AppLocalizations.of(context)!.invalid_password;
+                        }
+                      },
                       controller: passwordController,
-                      hintText: "Enter your password",
+                      hintText: lang.enter_your_password,
                       prefixIcon: Icon(Icons.lock_outline),
-                      suffixIcon: Icon(Icons.visibility_off),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                        },
+                        icon: Icon(Icons.visibility_off_outlined),
+                      ),
                     ),
                     SizedBox(height: 16),
                     CustomOutlinedTextFeild(
                       validator: (input) {
                         if (input == null || input.trim().isEmpty) {
-                          return "This Field Is Required";
+                          return lang.this_field_is_required;
                         }
                         if (input != passwordController.text.toString()) {
-                          return "Not Matching";
+                          return lang.not_matching;
                         }
                       },
                       controller: conformationPasswordController,
-                      hintText: "Confirm your password",
+                      hintText: lang.confirm_your_password,
                       prefixIcon: Icon(Icons.lock_outline),
-                      suffixIcon: Icon(Icons.visibility_off),
+                      suffixIcon: Icon(Icons.visibility_off_outlined),
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 52),
               CustomElevatedButton(
-                hintText: "Sign up",
+                hintText: lang.sign_up_elevated_button,
                 onPressed: _createAccount,
               ),
               SizedBox(height: 24),
@@ -115,11 +152,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already have an account? ",
+                    "${lang.already_have_an_account} ",
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                   CustomTextButton(
-                    hintText: "Login",
+                    hintText: lang.login,
                     onTap: () {
                       Navigator.pushReplacementNamed(
                         context,
@@ -141,7 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   Text(
-                    "Or",
+                    lang.or,
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
                       decoration: TextDecoration.none,
                       fontSize: 16,
