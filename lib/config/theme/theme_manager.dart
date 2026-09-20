@@ -5,9 +5,13 @@ class ThemeManager {
   static final ThemeData light = ThemeData(
     scaffoldBackgroundColor: ColorManager.background,
     dividerColor: ColorManager.offWhite,
-     appBarTheme: AppBarThemeData(
+    appBarTheme: AppBarThemeData(
       backgroundColor: ColorManager.background,
-      titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,color: ColorManager.black),
+      titleTextStyle: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.black,
+      ),
     ),
     textTheme: TextTheme(
       displaySmall: TextStyle(
@@ -26,6 +30,11 @@ class ThemeManager {
         color: ColorManager.darkGray,
         fontSize: 14,
         fontWeight: FontWeight.w400,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.black,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

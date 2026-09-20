@@ -15,10 +15,10 @@ class Evently extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: RoutesManager.routes,
-      initialRoute: RoutesManager.registerScreen,
+      initialRoute: RoutesManager.mainLayout,
       theme: ThemeManager.light,
       darkTheme: ThemeManager.dark,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
