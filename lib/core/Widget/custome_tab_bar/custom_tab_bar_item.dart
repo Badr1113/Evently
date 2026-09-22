@@ -12,6 +12,7 @@ class CustomTabBarItem extends StatelessWidget {
     required this.isSelected,
     required this.selectedFGIconColor,
     required this.unselectedFGIconColor,
+    required this.borderColor,
   });
 
   Color selectedBGColor;
@@ -20,6 +21,7 @@ class CustomTabBarItem extends StatelessWidget {
   Color unselectedFGTextColor;
   Color selectedFGIconColor;
   Color unselectedFGIconColor;
+  Color borderColor;
   CategoryModel category;
   bool isSelected;
 
@@ -28,9 +30,7 @@ class CustomTabBarItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        border: isSelected
-            ? null
-            : BoxBorder.all(color: ColorManager.offWhite, width: 2),
+        border: isSelected ? null : BoxBorder.all(color: borderColor, width: 2),
         color: isSelected ? selectedBGColor : unSelectedBGColor,
         borderRadius: BorderRadius.circular(16),
       ),

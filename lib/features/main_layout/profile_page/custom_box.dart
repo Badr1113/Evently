@@ -11,7 +11,9 @@ class CustomBox extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
-        border: Border.all(color: ColorManager.offWhite),
+        border: BoxBorder.all(
+          color: Theme.of(context).colorScheme.surfaceContainer,
+        ),
         borderRadius: BorderRadius.circular(16),
         color: Theme.of(context).primaryColor,
       ),

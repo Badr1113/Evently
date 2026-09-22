@@ -32,8 +32,8 @@ class _MainLayoutState extends State<MainLayout> {
     return BottomNavigationBar(
       onTap: onTap,
       currentIndex: selectedIndex,
-      backgroundColor: ColorManager.background,
-      selectedItemColor: ColorManager.primaryBlue,
+      backgroundColor:Theme.of(context).primaryColor,
+      selectedItemColor: Theme.of(context).colorScheme.secondary,
       unselectedItemColor: ColorManager.darkGray,
       showSelectedLabels: true,
       showUnselectedLabels: false,

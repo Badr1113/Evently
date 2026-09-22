@@ -41,13 +41,13 @@ class _HomePageState extends State<HomePage> {
                 Spacer(),
                 Icon(
                   Icons.light_mode_outlined,
-                  color: ColorManager.primaryBlue,
+                  color: Theme.of(context).iconTheme.color,
                 ),
                 SizedBox(width: 8),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                   decoration: BoxDecoration(
-                    color: ColorManager.primaryBlue,
+                    color: Theme.of(context).colorScheme.onSurface,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
@@ -60,13 +60,15 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            SizedBox(height:24 ,),
             CustomTabBar(
-              selectedBGColor: ColorManager.primaryBlue,
-              unSelectedBGColor: ColorManager.background,
-              selectedFGTextColor: ColorManager.white,
-              unselectedFGTextColor: ColorManager.black,
-              selectedFGIconColor: ColorManager.white,
-              unselectedFGIconColor: ColorManager.primaryBlue,
+              selectedBGColor: Theme.of(context).colorScheme.onSurface,
+              unSelectedBGColor: Theme.of(context).colorScheme.surface,
+              selectedFGTextColor: Theme.of(context).colorScheme.onPrimary,
+              unselectedFGTextColor: Theme.of(context).colorScheme.primary,
+              selectedFGIconColor: Theme.of(context).colorScheme.onSecondary,
+              unselectedFGIconColor: Theme.of(context).colorScheme.secondary,
+              borderColor: Theme.of(context).colorScheme.surface,
               categories: CategoryModel.categories,
             ),
             SizedBox(height: 24),

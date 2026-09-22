@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 
 class ThemeManager {
   static final ThemeData light = ThemeData(
+    colorScheme: ColorScheme.light(
+      onSurface: ColorManager.primaryBlue,
+      surface: ColorManager.background,
+      onPrimary: ColorManager.white,
+      primary: ColorManager.black,
+      onSecondary: ColorManager.white,
+      secondary: ColorManager.primaryBlue,
+      surfaceContainer: ColorManager.offWhite,
+    ),
     scaffoldBackgroundColor: ColorManager.background,
     primaryColor: ColorManager.white,
     dividerColor: ColorManager.offWhite,
@@ -76,7 +85,17 @@ class ThemeManager {
   );
 
   static final ThemeData dark = ThemeData(
+    colorScheme: ColorScheme.dark(
+      onSurface: ColorManager.brightBlue,
+      surface: ColorManager.navyBlue,
+      onPrimary: ColorManager.white,
+      primary: ColorManager.white,
+      onSecondary: ColorManager.white,
+      secondary: ColorManager.brightBlue,
+      surfaceContainer: ColorManager.darkBlue,
+    ),
     scaffoldBackgroundColor: ColorManager.darkModeBackground,
+    primaryColor: ColorManager.navyBlue,
     dividerColor: ColorManager.darkBlue,
     appBarTheme: AppBarThemeData(
       backgroundColor: ColorManager.darkModeBackground,
@@ -94,7 +113,7 @@ class ThemeManager {
       headlineLarge: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.w600,
-        color: ColorManager.white,
+        color: ColorManager.brightBlue,
       ),
 
       labelSmall: TextStyle(
@@ -102,7 +121,18 @@ class ThemeManager {
         fontSize: 14,
         fontWeight: FontWeight.w400,
       ),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.white,
+      ),
+      displayMedium: TextStyle(
+        color: ColorManager.white,
+        fontWeight: FontWeight.w500,
+        fontSize: 14,
+      ),
     ),
+    iconTheme: IconThemeData(color: ColorManager.brightBlue),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: ColorManager.brightBlue,

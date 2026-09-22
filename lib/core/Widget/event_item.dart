@@ -10,17 +10,20 @@ class EventItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 193,
-      width: 343,
+      height: 186,
+      width: 344,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        border: BoxBorder.all(color: ColorManager.offWhite, width: 1),
+        border: BoxBorder.all(
+          color: Theme.of(context).colorScheme.surfaceContainer,
+          width: 1,
+        ),
       ),
       child: Stack(
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(16),
-            child: Image.asset(event.imagePath),
+            child: Image.asset(event.imagePath, fit: BoxFit.fill),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -31,16 +34,16 @@ class EventItem extends StatelessWidget {
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: ColorManager.background,
+                    color: Theme.of(context).colorScheme.surface,
                     border: BoxBorder.all(
-                      color: ColorManager.offWhite,
+                      color: Theme.of(context).colorScheme.surfaceContainer,
                       width: 1,
                     ),
                   ),
                   child: Text(
                     event.eventDate.toString(),
                     style: Theme.of(context).textTheme.headlineLarge!
-                        .copyWith(fontSize: 16),
+                        .copyWith(fontSize: 16,),
                   ),
                 ),
                 Spacer(),
@@ -48,9 +51,9 @@ class EventItem extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: ColorManager.background,
+                    color: Theme.of(context).colorScheme.surface,
                     border: BoxBorder.all(
-                      color: ColorManager.offWhite,
+                      color: Theme.of(context).colorScheme.surfaceContainer,
                       width: 1,
                     ),
                   ),

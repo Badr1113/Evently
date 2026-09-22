@@ -12,6 +12,7 @@ class CustomTabBar extends StatefulWidget {
     required this.unselectedFGIconColor,
     required this.unselectedFGTextColor,
     required this.categories,
+    required this.borderColor
   });
   List<CategoryModel> categories;
   Color selectedBGColor;
@@ -20,6 +21,7 @@ class CustomTabBar extends StatefulWidget {
   Color unselectedFGTextColor;
   Color selectedFGIconColor;
   Color unselectedFGIconColor;
+  Color borderColor;
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
@@ -50,6 +52,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 unselectedFGIconColor: widget.unselectedFGIconColor,
                 selectedFGTextColor: widget.selectedFGTextColor,
                 unselectedFGTextColor: widget.unselectedFGTextColor,
+                borderColor: widget.borderColor,
                 category: category,
                 isSelected: category.index == selectedTab,
               ),
