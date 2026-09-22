@@ -1,9 +1,11 @@
+import 'package:evently/core/Models/event_model.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class EventItem extends StatelessWidget {
-  const new({super.key});
+  EventItem({required this.event});
+  EventModel event;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class EventItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(16),
-            child: Image.asset(AssetsManager.sportImage),
+            child: Image.asset(event.imagePath),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -36,15 +38,13 @@ class EventItem extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "21 Sep",
+                    event.eventDate.toString(),
                     style: Theme.of(context).textTheme.headlineLarge!
                         .copyWith(fontSize: 16),
                   ),
                 ),
                 Spacer(),
                 Container(
-                  width: double.infinity,
-                  height: 40,
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -56,14 +56,20 @@ class EventItem extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Text(
-                        "This is a Birthday Party",
-                        style: Theme.of(context).textTheme.displayMedium,
+                      Expanded(
+                        flex: 90,
+                        child: Text(
+                          event.title,
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
                       ),
-                      Spacer(),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.favorite, size: 20),
+                      // Spacer(),
+                      Expanded(
+                        flex: 10,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.favorite, size: 20),
+                        ),
                       ),
                     ],
                   ),

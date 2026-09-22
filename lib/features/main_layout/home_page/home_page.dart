@@ -1,4 +1,5 @@
 import 'package:evently/core/Models/category_model.dart';
+import 'package:evently/core/Models/event_model.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar_item.dart';
 import 'package:evently/core/Widget/event_item.dart';
@@ -22,7 +23,6 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            SizedBox(height: 24),
             Row(
               children: [
                 Column(
@@ -73,11 +73,22 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: ListView.separated(
                 itemBuilder: (BuildContext context, int index) {
-                  return EventItem();
+                  return EventItem(
+                    event: EventModel(
+                      id: "1",
+                      imagePath: AssetsManager.sportImage,
+                      category: CategoryModel.categories[1],
+                      title: "This Is Birthday Party",
+                      description: "Event Description",
+                      eventDate: DateTime.now(),
+                      eventTime: TimeOfDay.now(),
+                    ),
+                  );
                 },
-                itemCount: 5, separatorBuilder: (BuildContext context, int index) { 
-                  return SizedBox(height: 16,);
-                 },
+                itemCount: 5,
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(height: 16);
+                },
               ),
             ),
           ],
