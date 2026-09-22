@@ -1,6 +1,7 @@
 import 'package:evently/core/Models/category_model.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar_item.dart';
+import 'package:evently/core/Widget/event_item.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:flutter/foundation.dart';
@@ -68,7 +69,17 @@ class _HomePageState extends State<HomePage> {
               unselectedFGIconColor: ColorManager.primaryBlue,
               categories: CategoryModel.categories,
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 24),
+            Expanded(
+              child: ListView.separated(
+                itemBuilder: (BuildContext context, int index) {
+                  return EventItem();
+                },
+                itemCount: 5, separatorBuilder: (BuildContext context, int index) { 
+                  return SizedBox(height: 16,);
+                 },
+              ),
+            ),
           ],
         ),
       ),

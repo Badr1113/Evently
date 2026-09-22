@@ -8,21 +8,19 @@ class CustomOutlinedTextFeild extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     required this.controller,
-    required this.validator,
+    this.validator,
   });
   String hintText;
   Widget? prefixIcon;
   Widget? suffixIcon;
-  TextEditingController
-  controller; 
-  String? Function(String?)
-  validator; 
+  TextEditingController controller;
+  String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       validator: validator,
-      style:Theme.of(context).textTheme.labelSmall,
+      style: Theme.of(context).textTheme.labelSmall,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,

@@ -36,6 +36,11 @@ class ThemeManager {
         fontWeight: FontWeight.w500,
         color: ColorManager.black,
       ),
+      displayMedium: TextStyle(
+        color: ColorManager.black,
+        fontWeight: FontWeight.w500,
+        fontSize: 14,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -45,6 +50,7 @@ class ThemeManager {
         ),
       ),
     ),
+    iconTheme: IconThemeData(color: ColorManager.primaryBlue),
     inputDecorationTheme: InputDecorationThemeData(
       hintStyle: TextStyle(color: ColorManager.darkGray),
       prefixIconColor: ColorManager.lightGray,
