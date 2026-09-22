@@ -1,9 +1,19 @@
+import 'package:evently/core/Models/category_model.dart';
+import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar.dart';
+import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar_item.dart';
+import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
-class HomePage extends StatelessWidget {
-  const new({super.key});
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,6 +59,16 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
+            CustomTabBar(
+              selectedBGColor: ColorManager.primaryBlue,
+              unSelectedBGColor: ColorManager.background,
+              selectedFGTextColor: ColorManager.white,
+              unselectedFGTextColor: ColorManager.black,
+              selectedFGIconColor: ColorManager.white,
+              unselectedFGIconColor: ColorManager.primaryBlue,
+              categories: CategoryModel.categories,
+            ),
+            SizedBox(height: 50),
           ],
         ),
       ),
