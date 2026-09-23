@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:evently/core/Models/event_model.dart';
+import 'package:evently/core/extintions/date_extin.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +44,7 @@ class EventItem extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    event.eventDate.toString(),
+                    event.eventDate.toFormattedDate,
                     style: Theme.of(context).textTheme.headlineLarge!
                         .copyWith(fontSize: 16),
                   ),
@@ -85,3 +88,4 @@ class EventItem extends StatelessWidget {
     );
   }
 }
+
