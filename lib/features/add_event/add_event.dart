@@ -33,8 +33,9 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: _appBar(),
+      appBar: _appBar(lang),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -45,7 +46,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 border: BoxBorder.all(
                   color: Theme.of(context).colorScheme.surfaceContainer,
                 ),
-                borderRadius: BorderRadius.circular(16)
+                borderRadius: BorderRadius.circular(16),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
@@ -56,24 +57,24 @@ class _AddEventScreenState extends State<AddEventScreen> {
             CustomTabBar(categories: CategoryModel.categories),
             SizedBox(height: 16),
             Text(
-              "Title",
+              lang.title,
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.titleLarge!
                   .copyWith(fontSize: 16),
             ),
             CustomOutlinedTextFeild(
-              hintText: "Event Title",
+              hintText: lang.event_title,
               controller: eventTitleController,
             ),
             SizedBox(height: 16),
             Text(
-              "Description",
+              lang.description,
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.titleLarge!
                   .copyWith(fontSize: 16),
             ),
             CustomOutlinedTextFeild(
-              hintText: "Event Description....",
+              hintText: lang.event_description,
               controller: eventDescriptionController,
               maxLines: 7,
             ),
@@ -83,13 +84,13 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 Icon(Icons.date_range),
                 SizedBox(width: 8),
                 Text(
-                  "Event Date",
+                  lang.event_date,
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.titleLarge!
                       .copyWith(fontSize: 16),
                 ),
                 Spacer(),
-                CustomTextButton(hintText: "Choose date", onTap: () {}),
+                CustomTextButton(hintText: lang.choose_date, onTap: () {}),
               ],
             ),
             SizedBox(height: 16),
@@ -98,24 +99,24 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 Icon(Icons.av_timer),
                 SizedBox(width: 8),
                 Text(
-                  "Event Time",
+                  lang.event_time,
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.titleLarge!
                       .copyWith(fontSize: 16),
                 ),
                 Spacer(),
-                CustomTextButton(hintText: "Choose time", onTap: () {}),
+                CustomTextButton(hintText: lang.choose_time, onTap: () {}),
               ],
             ),
             Spacer(),
-            CustomElevatedButton(hintText: "Add Event", onPressed: () {}),
+            CustomElevatedButton(hintText: lang.add_event, onPressed: () {}),
           ],
         ),
       ),
     );
   }
 
-  AppBar _appBar() {
-    return AppBar(title: Text("Add Event"), centerTitle: true);
+  AppBar _appBar(AppLocalizations lang) {
+    return AppBar(title: Text(lang.add_event), centerTitle: true);
   }
 }

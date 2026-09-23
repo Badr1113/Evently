@@ -107,4 +107,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get logout => 'تسجيل الخروج';
+
+  @override
+  String get add_event => 'إضافة فعالية';
+
+  @override
+  String get title => 'العنوان';
+
+  @override
+  String get event_title => 'عنوان الفعالية';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get event_description => 'وصف الفعالية....';
+
+  @override
+  String get event_date => 'تاريخ الفعالية';
+
+  @override
+  String get event_time => 'وقت الفعالية';
+
+  @override
+  String get choose_date => 'اختر التاريخ';
+
+  @override
+  String get choose_time => 'اختر الوقت';
 }

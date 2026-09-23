@@ -31,5 +31,14 @@
     "search_for_event":"Search for event",
     "dark_mode":"Dark Mode",
     "language":"Language",
-    "logout":"Logout"
+    "logout":"Logout",
+    "add_event": "Add Event",
+    "title": "Title",
+    "event_title" : "Event Title",
+    "description":"Description",
+    "event_description":"Event Description....",
+    "event_date":"Event Date",
+    "event_time":"Event Time",
+    "choose_date":"Choose Date",
+    "choose_time":"Choose Time"
 }
