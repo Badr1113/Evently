@@ -5,6 +5,7 @@ import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar_item.dart';
 import 'package:evently/core/Widget/event_item.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     Text(
-                      "Welcome Back ✨",
+                      lang.welcome_back,
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                     SizedBox(height: 2),
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            SizedBox(height:24 ,),
+            SizedBox(height: 24),
             CustomTabBar(
               selectedBGColor: Theme.of(context).colorScheme.onSurface,
               unSelectedBGColor: Theme.of(context).colorScheme.surface,

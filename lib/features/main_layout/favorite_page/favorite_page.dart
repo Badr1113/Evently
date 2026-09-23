@@ -4,6 +4,7 @@ import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/Widget/event_item.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -15,13 +16,14 @@ class _FavoritePageState extends State<FavoritePage> {
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+  AppLocalizations lang = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             CustomOutlinedTextFeild(
-              hintText: "Search for event",
+              hintText: lang.search_for_event,
               controller: searchController,
               suffixIcon: Icon(
                 Icons.search,

@@ -1,13 +1,16 @@
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/features/main_layout/profile_page/custom_box.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ProfilePage extends StatelessWidget {
   const new({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -38,7 +41,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 32),
             CustomBox(
-              title: "Dark Mode",
+              title: lang.dark_mode,
               function: Switch(
                 value: false,
                 onChanged: (onChanged) {},
@@ -51,7 +54,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             CustomBox(
-              title: "Language",
+              title: lang.language,
               function: DropdownButton(
                 value: 1,
                 items: [
@@ -63,7 +66,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             CustomBox(
-              title: "Logout",
+              title: lang.logout,
               function: IconButton(
                 onPressed: () {},
                 icon: Icon(Icons.logout, color: ColorManager.red),

@@ -17,5 +17,19 @@
     "name_validator_msg" : "Name Must Be 4 or more",
     "invalid_email" : "Invalid Email",
     "invalid_password" : "invalid_password",
-    "not_matching" : "Not Matching"
+    "not_matching" : "Not Matching",
+    "welcome_back" : "Welcome Back ✨",
+    "all" : "All",
+    "sport" : "Sport",
+    "bookclub" : "Bookclub",
+    "birthday" : "Birthday",
+    "meeting" : "Meeting",
+    "exhibition":"Exhibition",
+    "home":"Home",
+    "favorite":"Favorite",
+    "profile":"Profile",
+    "search_for_event":"Search for event",
+    "dark_mode":"Dark Mode",
+    "language":"Language",
+    "logout":"Logout"
 }

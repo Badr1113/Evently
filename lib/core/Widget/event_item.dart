@@ -43,7 +43,7 @@ class EventItem extends StatelessWidget {
                   child: Text(
                     event.eventDate.toString(),
                     style: Theme.of(context).textTheme.headlineLarge!
-                        .copyWith(fontSize: 16,),
+                        .copyWith(fontSize: 16),
                   ),
                 ),
                 Spacer(),

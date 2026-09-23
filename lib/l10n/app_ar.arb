@@ -17,5 +17,19 @@
     "name_validator_msg" : "يجب أن يتكون الاسم من 4 أحرف أو أكثر",
     "invalid_email" : "البريد الإلكتروني غير صحيح",
     "invalid_password" : "كلمة المرور غير صحيحة",
-    "not_matching" : "غير متطابق"
+    "not_matching" : "غير متطابق",
+    "welcome_back" : "مرحبًا بعودتك ✨",
+    "all" : "الكل",
+    "sport" : "رياضة",
+    "bookclub" : "نادي الكتاب",
+    "birthday" : "عيد ميلاد",
+    "meeting" : "اجتماع",
+    "exhibition":"معرض",
+    "home":"الرئيسية",
+    "favorite":"المفضلة",
+    "profile":"الملف الشخصي",
+    "search_for_event":"ابحث عن فعالية",
+    "dark_mode":"الوضع الداكن",
+    "language":"اللغة",
+    "logout":"تسجيل الخروج"
 }

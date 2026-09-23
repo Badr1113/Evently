@@ -1,5 +1,6 @@
 import 'package:evently/core/Models/category_model.dart';
 import 'package:evently/core/sourses/color_manager.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBarItem extends StatelessWidget {
@@ -27,6 +28,7 @@ class CustomTabBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -42,7 +44,15 @@ class CustomTabBarItem extends StatelessWidget {
           ),
           SizedBox(width: 8),
           Text(
-            category.label,
+            switch (category.label) {
+              "All" => lang.all,
+              "Sport" => lang.sport,
+              "BookClub" => lang.bookclub,
+              "Birthday" => lang.birthday,
+              "Meeting" => lang.meeting,
+              "Exhibition" => lang.exhibition,
+              _ => category.label,
+            },
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,

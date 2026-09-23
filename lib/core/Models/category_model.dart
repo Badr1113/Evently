@@ -1,4 +1,5 @@
 import 'package:evently/core/sourses/assets_manager.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CategoryModel {
@@ -15,7 +16,8 @@ class CategoryModel {
   int index;
   String imagePath;
 
-  static List<CategoryModel> categories = [ // dont forget to change every item Image
+  static List<CategoryModel> categories = [
+    // dont forget to change every item Image
     CategoryModel(
       id: "0",
       index: 0,

@@ -65,4 +65,46 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get not_matching => 'غير متطابق';
+
+  @override
+  String get welcome_back => 'مرحبًا بعودتك ✨';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get sport => 'رياضة';
+
+  @override
+  String get bookclub => 'نادي الكتاب';
+
+  @override
+  String get birthday => 'عيد ميلاد';
+
+  @override
+  String get meeting => 'اجتماع';
+
+  @override
+  String get exhibition => 'معرض';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get favorite => 'المفضلة';
+
+  @override
+  String get profile => 'الملف الشخصي';
+
+  @override
+  String get search_for_event => 'ابحث عن فعالية';
+
+  @override
+  String get dark_mode => 'الوضع الداكن';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get logout => 'تسجيل الخروج';
 }
