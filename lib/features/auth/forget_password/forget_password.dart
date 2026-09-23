@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const new({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    AppLocalizations lang = AppLocalizations.of(context)! ;
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: _appBar(context,lang),
+      appBar: _appBar(context, lang),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -24,20 +24,26 @@ class ForgetPasswordScreen extends StatelessWidget {
               height: 343,
             ),
             SizedBox(height: 40),
-            CustomElevatedButton(hintText: lang.forget_password, onPressed: () {}),
+            CustomElevatedButton(
+              hintText: lang.forget_password,
+              onPressed: () {},
+            ),
           ],
         ),
       ),
     );
   }
 
-  AppBar _appBar(BuildContext context,AppLocalizations lang) {
+  AppBar _appBar(BuildContext context, AppLocalizations lang) {
     return AppBar(
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back_ios, color: ColorManager.primaryBlue),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: Theme.of(context).iconTheme.color,
+        ),
       ),
       centerTitle: true,
       title: Text(lang.forget_password),

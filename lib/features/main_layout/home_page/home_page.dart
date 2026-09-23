@@ -64,14 +64,15 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 24),
             CustomTabBar(
-              selectedBGColor: Theme.of(context).colorScheme.onSurface,
-              unSelectedBGColor: Theme.of(context).colorScheme.surface,
-              selectedFGTextColor: Theme.of(context).colorScheme.onPrimary,
-              unselectedFGTextColor: Theme.of(context).colorScheme.primary,
-              selectedFGIconColor: Theme.of(context).colorScheme.onSecondary,
-              unselectedFGIconColor: Theme.of(context).colorScheme.secondary,
-              borderColor: Theme.of(context).colorScheme.surface,
-              categories: CategoryModel.categories,
+              categories: [
+                CategoryModel(
+                  id: "0",
+                  label: "All",
+                  icon: Icons.square,
+                  imagePath: AssetsManager.sportImage,
+                ),
+                ...CategoryModel.categories,
+              ],
             ),
             SizedBox(height: 24),
             Expanded(

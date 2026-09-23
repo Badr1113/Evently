@@ -4,24 +4,8 @@ import 'package:evently/core/sourses/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
-  CustomTabBar({
-    required this.selectedBGColor,
-    required this.selectedFGIconColor,
-    required this.selectedFGTextColor,
-    required this.unSelectedBGColor,
-    required this.unselectedFGIconColor,
-    required this.unselectedFGTextColor,
-    required this.categories,
-    required this.borderColor
-  });
+  CustomTabBar({required this.categories});
   List<CategoryModel> categories;
-  Color selectedBGColor;
-  Color unSelectedBGColor;
-  Color selectedFGTextColor;
-  Color unselectedFGTextColor;
-  Color selectedFGIconColor;
-  Color unselectedFGIconColor;
-  Color borderColor;
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
@@ -46,15 +30,15 @@ class _CustomTabBarState extends State<CustomTabBar> {
         tabs: widget.categories
             .map(
               (category) => CustomTabBarItem(
-                selectedBGColor: widget.selectedBGColor,
-                unSelectedBGColor: widget.unSelectedBGColor,
-                selectedFGIconColor: widget.selectedFGIconColor,
-                unselectedFGIconColor: widget.unselectedFGIconColor,
-                selectedFGTextColor: widget.selectedFGTextColor,
-                unselectedFGTextColor: widget.unselectedFGTextColor,
-                borderColor: widget.borderColor,
+                selectedBGColor: Theme.of(context).colorScheme.onSurface,
+                unSelectedBGColor: Theme.of(context).colorScheme.surface,
+                selectedFGTextColor: Theme.of(context).colorScheme.onPrimary,
+                unselectedFGTextColor: Theme.of(context).colorScheme.primary,
+                selectedFGIconColor: Theme.of(context).colorScheme.onSecondary,
+                unselectedFGIconColor: Theme.of(context).colorScheme.secondary,
+                borderColor: Theme.of(context).colorScheme.surface,
                 category: category,
-                isSelected: category.index == selectedTab,
+                isSelected: widget.categories.indexOf(category) == selectedTab,
               ),
             )
             .toList(),

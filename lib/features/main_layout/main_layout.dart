@@ -1,4 +1,5 @@
 import 'package:evently/core/sourses/color_manager.dart';
+import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/features/main_layout/favorite_page/favorite_page.dart';
 import 'package:evently/features/main_layout/home_page/home_page.dart';
 import 'package:evently/features/main_layout/profile_page/profile_page.dart';
@@ -20,6 +21,14 @@ class _MainLayoutState extends State<MainLayout> {
     return Scaffold(
       bottomNavigationBar: _bottomNavigationBar(context),
       body: pages[selectedIndex],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, RoutesManager.addEventScreen);
+        },
+        backgroundColor: Theme.of(context).colorScheme.onSurface,
+        shape: CircleBorder(),
+        child: Icon(Icons.add,),
+      ),
     );
   }
 

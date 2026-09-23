@@ -13,10 +13,23 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  TextEditingController searchController = TextEditingController();
+  late TextEditingController searchController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-  AppLocalizations lang = AppLocalizations.of(context)!;
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16),

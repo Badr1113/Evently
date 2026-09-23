@@ -9,15 +9,18 @@ class CustomOutlinedTextFeild extends StatelessWidget {
     this.suffixIcon,
     required this.controller,
     this.validator,
+    this.maxLines
   });
   String hintText;
   Widget? prefixIcon;
   Widget? suffixIcon;
   TextEditingController controller;
   String? Function(String?)? validator;
+  int? maxLines;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       controller: controller,
       validator: validator,
       style: Theme.of(context).textTheme.labelSmall,
