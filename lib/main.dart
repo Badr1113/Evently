@@ -1,33 +1,50 @@
 import 'package:evently/config/theme/theme_manager.dart';
+import 'package:evently/core/provider/lang_provider.dart';
+import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(Evently());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (context) => ThemeProvider(),
+        ),
+        ChangeNotifierProvider<LangProvider>(
+          create: (context) => LangProvider(),
+        ),
+      ],
+      child: Evently(),
+    ),
+  );
 }
 
 class Evently extends StatelessWidget {
-  const new({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+    LangProvider langProvider = Provider.of<LangProvider>(context);
     return MaterialApp(
       routes: RoutesManager.routes,
       initialRoute: RoutesManager.mainLayout,
       theme: ThemeManager.light,
       darkTheme: ThemeManager.dark,
-      themeMode: ThemeMode.light,
+      themeMode: themeProvider.currentTheme,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: Locale('en'),
+      locale:langProvider.currentLan,
     );
   }
 }
+
+// *TODO و تعمل كوميت و تعمل بوش 

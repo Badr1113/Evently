@@ -3,6 +3,7 @@ class AssetsManager {
   static const String main_logo_light = "assets/images/Evently_logo_light.png";
   static const String forgetPasswordImage =
       "assets/images/forget_password_image.png";
-  static const String sportImage = "assets/images/Sport_image.png";
+  static const String lightSportImage = "assets/images/sport_image_light.png";
+  static const String darkSportImage = "assets/images/sport_image_dark.png";
   static const String profileImage = "assets/images/route_profile_image.png";
 }

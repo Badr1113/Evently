@@ -3,10 +3,12 @@ import 'package:evently/core/Widget/custom_elevated_button.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar.dart';
 import 'package:evently/core/extintions/date_extin.dart';
+import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddEventScreen extends StatefulWidget {
   const new({super.key});
@@ -37,6 +39,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations lang = AppLocalizations.of(context)!;
+    final themeProvider = context.watch<ThemeProvider>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: _appBar(lang),
@@ -54,7 +57,11 @@ class _AddEventScreenState extends State<AddEventScreen> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.asset(AssetsManager.sportImage),
+                child: Image.asset(
+                  themeProvider.isDark
+                      ? AssetsManager.darkSportImage
+                      : AssetsManager.lightSportImage,
+                ),
               ),
             ),
             SizedBox(height: 16),

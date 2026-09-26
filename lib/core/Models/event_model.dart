@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class EventModel {
   EventModel({
     required this.id,
-    required this.imagePath,
+    required this.imagePathLight,
+    required this.imagePathDark,
     required this.category,
     required this.title,
     required this.description,
@@ -12,7 +13,8 @@ class EventModel {
     required this.eventTime,
   });
   String id;
-  String imagePath;
+  String imagePathLight;
+  String imagePathDark;
   CategoryModel category;
   String title;
   String description;

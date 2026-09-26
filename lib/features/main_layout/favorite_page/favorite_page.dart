@@ -50,12 +50,13 @@ class _FavoritePageState extends State<FavoritePage> {
                   return EventItem(
                     event: EventModel(
                       id: "1",
-                      imagePath: AssetsManager.sportImage,
                       category: CategoryModel.categories[1],
                       title: "This Is Birthday Party",
                       description: "Event Description",
                       eventDate: DateTime.now(),
                       eventTime: TimeOfDay.now(),
+                      imagePathLight: AssetsManager.lightSportImage,
+                      imagePathDark: AssetsManager.darkSportImage,
                     ),
                   );
                 },

@@ -3,6 +3,8 @@ import 'package:evently/core/Models/event_model.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar_item.dart';
 import 'package:evently/core/Widget/event_item.dart';
+import 'package:evently/core/provider/lang_provider.dart';
+import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/l10n/app_localizations.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,6 +22,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+    LangProvider langProvider = Provider.of<LangProvider>(context);
     AppLocalizations lang = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
@@ -42,7 +47,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Spacer(),
                 Icon(
-                  Icons.light_mode_outlined,
+                  themeProvider.isDark
+                      ? Icons.dark_mode_outlined
+                      : Icons.light_mode_outlined,
                   color: Theme.of(context).iconTheme.color,
                 ),
                 SizedBox(width: 8),
@@ -53,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    "En",
+                    langProvider.currentLan == Locale("en") ? "En" : "Ar",
                     style: TextStyle(
                       color: ColorManager.white,
                       fontWeight: FontWeight.bold,
@@ -69,7 +76,6 @@ class _HomePageState extends State<HomePage> {
                   id: "0",
                   label: "All",
                   icon: Icons.square,
-                  imagePath: AssetsManager.sportImage,
                 ),
                 ...CategoryModel.categories,
               ],
@@ -81,7 +87,8 @@ class _HomePageState extends State<HomePage> {
                   return EventItem(
                     event: EventModel(
                       id: "1",
-                      imagePath: AssetsManager.sportImage,
+                      imagePathLight: AssetsManager.lightSportImage,
+                      imagePathDark: AssetsManager.darkSportImage,
                       category: CategoryModel.categories[1],
                       title: "This Is Birthday Party",
                       description: "Event Description",

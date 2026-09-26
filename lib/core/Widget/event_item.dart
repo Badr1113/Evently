@@ -2,9 +2,11 @@ import 'dart:ui';
 
 import 'package:evently/core/Models/event_model.dart';
 import 'package:evently/core/extintions/date_extin.dart';
+import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EventItem extends StatelessWidget {
   EventItem({required this.event});
@@ -12,6 +14,7 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
     return Container(
       height: 186,
       width: 344,
@@ -26,7 +29,10 @@ class EventItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(16),
-            child: Image.asset(event.imagePath, fit: BoxFit.fill),
+            child: Image.asset(
+              themeProvider.isDark ? event.imagePathDark : event.imagePathLight,
+              fit: BoxFit.fill,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -88,4 +94,3 @@ class EventItem extends StatelessWidget {
     );
   }
 }
-

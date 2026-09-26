@@ -1,9 +1,12 @@
+import 'package:evently/core/provider/lang_provider.dart';
+import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/features/main_layout/profile_page/custom_box.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const new({super.key});
@@ -11,6 +14,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations lang = AppLocalizations.of(context)!;
+    final themeProvider = context.watch<ThemeProvider>();
+    final langProvider = context.watch<LangProvider>();
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,8 +48,10 @@ class ProfilePage extends StatelessWidget {
             CustomBox(
               title: lang.dark_mode,
               function: Switch(
-                value: false,
-                onChanged: (onChanged) {},
+                value: themeProvider.isDark,
+                onChanged: (onChanged) {
+                  themeProvider.changeCurrentTheme();
+                },
                 focusColor: ColorManager.red,
                 hoverColor: ColorManager.red,
                 inactiveThumbColor: ColorManager.white,
@@ -56,12 +63,22 @@ class ProfilePage extends StatelessWidget {
             CustomBox(
               title: lang.language,
               function: DropdownButton(
-                value: 1,
+                underline: Container(),
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Theme.of(context).iconTheme.color,
+                ),
                 items: [
-                  DropdownMenuItem(value: 1, child: Text("  English ")),
-                  DropdownMenuItem(value: 2, child: Text("  Arabic ")),
+                  DropdownMenuItem(value: "en", child: Text("  English ")),
+                  DropdownMenuItem(value: "ar", child: Text("  Arabic ")),
                 ],
-                onChanged: (onChanged) {},
+                onChanged: (onChanged) {
+                  if (onChanged == "en") {
+                    langProvider.changeCurrentLan(Locale("en"));
+                  } else {
+                    langProvider.changeCurrentLan(Locale("ar"));
+                  } 
+                },
               ),
             ),
             SizedBox(height: 16),
