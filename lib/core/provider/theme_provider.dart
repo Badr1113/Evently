@@ -1,8 +1,9 @@
+import 'package:evently/core/local_storage/prefs_manager.dart';
 import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
   // observer
-  ThemeMode currentTheme = ThemeMode.light;
+  ThemeMode currentTheme =  PrefsManager.getTheme  ?? ThemeMode.light ;
   bool get isDark => currentTheme == ThemeMode.dark;
   void changeCurrentTheme() {
     if (currentTheme == ThemeMode.light) {
@@ -10,6 +11,7 @@ class ThemeProvider extends ChangeNotifier {
     } else {
       currentTheme = ThemeMode.light;
     }
+    PrefsManager.storeTheme(currentTheme);
     notifyListeners(); // this notify the observers
   }
 }

@@ -1,4 +1,5 @@
 import 'package:evently/config/theme/theme_manager.dart';
+import 'package:evently/core/local_storage/prefs_manager.dart';
 import 'package:evently/core/provider/lang_provider.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
@@ -7,7 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PrefsManager.init();
+
   runApp(
     MultiProvider(
       providers: [
@@ -42,9 +46,9 @@ class Evently extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      locale:langProvider.currentLan,
+      locale: langProvider.currentLan,
     );
   }
 }
 
-// *TODO و تعمل كوميت و تعمل بوش 
+// *TODO و تعمل كوميت و تعمل بوش
