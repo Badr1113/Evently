@@ -1,4 +1,6 @@
+import 'package:evently/core/Widget/custom_dialog.dart';
 import 'package:evently/core/Widget/custom_elevated_button.dart';
+import 'package:evently/core/Widget/custom_flutter_toast.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
@@ -6,7 +8,9 @@ import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/core/sourses/validator.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const new({super.key});
@@ -77,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           return AppLocalizations.of(context)!.invalid_email;
                         }
                       },
+                      maxLines: 1,
                     ),
                     SizedBox(height: 16),
                     CustomOutlinedTextFeild(
@@ -99,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           return AppLocalizations.of(context)!.invalid_password;
                         }
                       },
+                      maxLines: 1,
                     ),
                     SizedBox(height: 8),
                     CustomTextButton(
@@ -173,7 +179,48 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _login() {
-    _formstate.currentState!.validate();
+  void _login() async {
+    if (!_formstate.currentState!.validate()) {
+      return;
+    }
+    try {
+      CustomDialog.showCustomDialog(context);
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: emailController.text,
+            password: passwordController.text,
+          );
+      await CustomDialog.waitAndPop(context, 2);
+      CustomFlutterToast.showToast(context, "Successful Login");
+      Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-credential') {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(context, "Incorrect email or password.");
+      } else if (e.code == 'user-not-found') {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(context, "No user found for that email.");
+      } else if (e.code == 'wrong-password') {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(
+          context,
+          "Wrong password provided for that user.",
+        );
+      }
+    } on FirebaseException catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      if (e.code == 'unavailable') {
+        CustomFlutterToast.showToast(
+          context,
+          "Firestore/Firebase service is currently unavailable. You might be offline.",
+        );
+      } else {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(context, "Firebase Error: ${e.message}");
+      }
+    } catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      CustomFlutterToast.showToast(context, "Firebase Error: ${e}");
+    }
   }
 }

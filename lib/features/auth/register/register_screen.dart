@@ -1,12 +1,15 @@
+import 'package:evently/core/Widget/custom_dialog.dart';
 import 'package:evently/core/Widget/custom_elevated_button.dart';
+import 'package:evently/core/Widget/custom_flutter_toast.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
-import 'package:evently/core/sourses/validator.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -82,6 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: nameController,
                       hintText: lang.enter_your_name,
                       prefixIcon: Icon(Icons.person_outline_sharp),
+                      maxLines: 1,
                     ),
                     SizedBox(height: 16),
                     CustomOutlinedTextFeild(
@@ -100,6 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: emailController,
                       hintText: lang.enter_your_email,
                       prefixIcon: Icon(Icons.email_outlined),
+                      maxLines: 1,
                     ),
                     SizedBox(height: 16),
                     CustomOutlinedTextFeild(
@@ -118,9 +123,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: passwordController,
                       hintText: lang.enter_your_password,
                       prefixIcon: Icon(Icons.lock_outline),
+                      maxLines: 1,
                       suffixIcon: IconButton(
-                        onPressed: () {
-                        },
+                        onPressed: () {},
                         icon: Icon(Icons.visibility_off_outlined),
                       ),
                     ),
@@ -138,6 +143,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: lang.confirm_your_password,
                       prefixIcon: Icon(Icons.lock_outline),
                       suffixIcon: Icon(Icons.visibility_off_outlined),
+                      maxLines: 1,
                     ),
                   ],
                 ),
@@ -145,7 +151,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               SizedBox(height: 52),
               CustomElevatedButton(
                 hintText: lang.sign_up_elevated_button,
-                onPressed: _createAccount,
+                onPressed: () async {
+                  await _createAccount(
+                    email: emailController.text,
+                    password: passwordController.text,
+                  );
+                },
               ),
               SizedBox(height: 24),
               Row(
@@ -201,9 +212,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void _createAccount() {
-    if (_formState.currentState!.validate()) {
+  Future<void> _createAccount({
+    required String email,
+    required String password,
+  }) async {
+    if (!_formState.currentState!.validate()) {
       return;
+    }
+    try {
+      CustomDialog.showCustomDialog(context);
+      final userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      await CustomDialog.waitAndPop(context, 2);
+      CustomFlutterToast.showToast(context, "Accont Has Been Created");
+      Navigator.pushReplacementNamed(context, RoutesManager.loginScreen);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(
+          context,
+          "The password provided is too weak.",
+        );
+      } else if (e.code == 'email-already-in-use') {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(
+          context,
+          "The account already exists for that email.",
+        );
+      } else if (e.code == 'network-request-failed') {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(
+          context,
+          'Authentication network error: Please check your internet connection.',
+        );
+      } else {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(context, "Auth Error: ${e.message}");
+      }
+    } on FirebaseException catch (e) {
+      if (e.code == 'unavailable') {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(
+          context,
+          "Firestore/Firebase service is currently unavailable. You might be offline.",
+        );
+      } else {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(context, "Firebase Error: ${e.message}");
+      }
+    } catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      CustomFlutterToast.showToast(context, "Firebase Error : ${e}");
     }
   }
 }

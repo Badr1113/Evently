@@ -18,11 +18,11 @@ class PrefsManager {
     }
   }
 
-  static ThemeMode? get getTheme {
+  static ThemeMode? get getTheme { // 3 paths Light or dark or null
     String? savedTheme = _prefs.getString(_themeKey);
     if (savedTheme == "Light") {
       return ThemeMode.light;
-    } else {
+    } else if(savedTheme == "Dark") {
       return ThemeMode.dark;
     }
   }

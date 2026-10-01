@@ -42,6 +42,7 @@ class _FavoritePageState extends State<FavoritePage> {
                 Icons.search,
                 color: Theme.of(context).iconTheme.color,
               ),
+              maxLines: 2,
             ),
             SizedBox(height: 16),
             Expanded(

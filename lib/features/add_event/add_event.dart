@@ -76,6 +76,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
             CustomOutlinedTextFeild(
               hintText: lang.event_title,
               controller: eventTitleController,
+              maxLines: 1,
             ),
             SizedBox(height: 16),
             Text(
