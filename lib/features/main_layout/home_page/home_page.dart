@@ -1,5 +1,6 @@
 import 'package:evently/core/Models/category_model.dart';
 import 'package:evently/core/Models/event_model.dart';
+import 'package:evently/core/Models/user_model.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar_item.dart';
 import 'package:evently/core/Widget/event_item.dart';
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: 2),
                     Text(
-                      "Badr Waleed",
+                      UserModel.userLogged!.name,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ],

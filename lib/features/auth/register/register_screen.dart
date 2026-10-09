@@ -1,15 +1,15 @@
+import 'package:evently/core/Models/user_model.dart';
 import 'package:evently/core/Widget/custom_dialog.dart';
 import 'package:evently/core/Widget/custom_elevated_button.dart';
 import 'package:evently/core/Widget/custom_flutter_toast.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
+import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
-import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -221,8 +221,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     try {
       CustomDialog.showCustomDialog(context);
-      final userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await FirebaseServices.createAccount(email, password);
+      UserModel user = UserModel(id: userCredential.user!.uid, name: nameController.text, email: emailController.text);
+      await FirebaseServices.addUserToFireStore(user);
       await CustomDialog.waitAndPop(context, 2);
       CustomFlutterToast.showToast(context, "Accont Has Been Created");
       Navigator.pushReplacementNamed(context, RoutesManager.loginScreen);

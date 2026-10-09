@@ -1,16 +1,15 @@
+import 'package:evently/core/Models/user_model.dart';
 import 'package:evently/core/Widget/custom_dialog.dart';
 import 'package:evently/core/Widget/custom_elevated_button.dart';
 import 'package:evently/core/Widget/custom_flutter_toast.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
+import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
-import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
-import 'package:evently/core/sourses/validator.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const new({super.key});
@@ -185,11 +184,14 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     try {
       CustomDialog.showCustomDialog(context);
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-            email: emailController.text,
-            password: passwordController.text,
-          );
+      UserCredential userCredential = await FirebaseServices.logIn(
+        emailController.text,
+        passwordController.text,
+      );
+      UserModel user = await FirebaseServices.getUserFromFirebase(
+        userCredential.user!.uid,
+      );
+      UserModel.userLogged = user;
       await CustomDialog.waitAndPop(context, 2);
       CustomFlutterToast.showToast(context, "Successful Login");
       Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);

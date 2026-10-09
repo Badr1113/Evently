@@ -1,3 +1,4 @@
+import 'package:evently/core/Models/user_model.dart';
 import 'package:evently/core/provider/lang_provider.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
@@ -33,14 +34,14 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              "Badr Waleed",
+              UserModel.userLogged!.name,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.displayMedium!
                   .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
             ),
             SizedBox(height: 4),
             Text(
-              "BadrWaleed.route@gmail.com",
+              UserModel.userLogged!.email,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelSmall,
             ),

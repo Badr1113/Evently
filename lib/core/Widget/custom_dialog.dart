@@ -24,7 +24,6 @@ abstract class CustomDialog {
   }
 
   static Future<void> waitAndPop(BuildContext context, int seconds) async {
-    debugPrint("=========================\nIam Here fucntion");
     await Future.delayed(Duration(seconds: seconds));
     Navigator.pop(context);
   }
