@@ -51,6 +51,11 @@ class ThemeManager {
         fontWeight: FontWeight.w500,
         fontSize: 14,
       ),
+      labelMedium: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.primaryBlue,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
