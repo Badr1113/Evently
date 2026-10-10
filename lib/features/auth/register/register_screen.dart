@@ -205,6 +205,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ],
               ),
+              SizedBox(height: 24),
+              Container(
+                height: 48,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  borderRadius: BorderRadius.circular(16),
+                  border: BoxBorder.all(
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      AssetsManager.googleLogo,
+                      height: 24,
+                      width: 24,
+                    ),
+                    SizedBox(width: 16),
+                    Text(
+                      "Sign up with Google",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -221,8 +247,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     try {
       CustomDialog.showCustomDialog(context);
-      UserCredential userCredential = await FirebaseServices.createAccount(email, password);
-      UserModel user = UserModel(id: userCredential.user!.uid, name: nameController.text, email: emailController.text);
+      UserCredential userCredential = await FirebaseServices.createAccount(
+        email,
+        password,
+      );
+      UserModel user = UserModel(
+        id: userCredential.user!.uid,
+        name: nameController.text,
+        email: emailController.text,
+      );
       await FirebaseServices.addUserToFireStore(user);
       await CustomDialog.waitAndPop(context, 2);
       CustomFlutterToast.showToast(context, "Accont Has Been Created");

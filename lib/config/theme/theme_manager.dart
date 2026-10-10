@@ -51,6 +51,11 @@ class ThemeManager {
         fontWeight: FontWeight.w500,
         fontSize: 14,
       ),
+      labelMedium: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.primaryBlue,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -88,7 +93,7 @@ class ThemeManager {
     colorScheme: ColorScheme.dark(
       onSurface: ColorManager.brightBlue,
       surface: ColorManager.navyBlue,
-      onPrimary: ColorManager.white,
+      onPrimary: ColorManager.darkBlue,
       primary: ColorManager.white,
       onSecondary: ColorManager.white,
       secondary: ColorManager.brightBlue,
@@ -130,6 +135,11 @@ class ThemeManager {
         color: ColorManager.white,
         fontWeight: FontWeight.w500,
         fontSize: 14,
+      ),
+      labelMedium: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: ColorManager.brightBlue,
       ),
     ),
     iconTheme: IconThemeData(color: ColorManager.brightBlue),

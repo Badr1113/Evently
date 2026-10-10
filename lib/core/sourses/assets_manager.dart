@@ -6,4 +6,5 @@ class AssetsManager {
   static const String lightSportImage = "assets/images/sport_image_light.png";
   static const String darkSportImage = "assets/images/sport_image_dark.png";
   static const String profileImage = "assets/images/route_profile_image.png";
+  static const String googleLogo = "assets/images/google_logo.png";
 }

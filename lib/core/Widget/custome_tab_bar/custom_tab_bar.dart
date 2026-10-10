@@ -32,7 +32,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
               (category) => CustomTabBarItem(
                 selectedBGColor: Theme.of(context).colorScheme.onSurface,
                 unSelectedBGColor: Theme.of(context).colorScheme.surface,
-                selectedFGTextColor: Theme.of(context).colorScheme.onPrimary,
+                selectedFGTextColor: ColorManager.white,
                 unselectedFGTextColor: Theme.of(context).colorScheme.primary,
                 selectedFGIconColor: Theme.of(context).colorScheme.onSecondary,
                 unselectedFGIconColor: Theme.of(context).colorScheme.secondary,

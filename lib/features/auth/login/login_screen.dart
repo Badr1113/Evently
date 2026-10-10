@@ -168,6 +168,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 24),
+                    Container(
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        borderRadius: BorderRadius.circular(16),
+                        border: BoxBorder.all(
+                          color: Theme.of(context).colorScheme.surfaceContainer,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            AssetsManager.googleLogo,
+                            height: 24,
+                            width: 24,
+                          ),
+                          SizedBox(width: 16),
+                          Text(
+                            "Login with Google",
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

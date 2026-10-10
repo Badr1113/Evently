@@ -1,3 +1,4 @@
+import 'package:evently/core/sourses/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -7,7 +8,7 @@ abstract class CustomFlutterToast {
       msg: msg,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Theme.of(context).colorScheme.onSurface,
-      textColor: Theme.of(context).colorScheme.onPrimary,
+      textColor: ColorManager.white,
     );
   }
 }
