@@ -1,6 +1,7 @@
 import 'package:evently/config/theme/theme_manager.dart';
 import 'package:evently/core/Models/onbording_model.dart';
 import 'package:evently/core/Widget/custom_elevated_button.dart';
+import 'package:evently/core/local_storage/prefs_manager.dart';
 import 'package:evently/core/provider/lang_provider.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
@@ -21,14 +22,26 @@ import 'package:provider/provider.dart';
 
  */
 
-class initSettings extends StatelessWidget {
+class initSettings extends StatefulWidget {
   const new({super.key});
 
+  @override
+  State<initSettings> createState() => _initSettingsState();
+}
+
+class _initSettingsState extends State<initSettings> {
+  @override
+  void initState() {
+    super.initState();
+    PrefsManager.storeFirstTimeKey();
+  }
   @override
   Widget build(BuildContext context) {
     LangProvider langProvider = context.watch<LangProvider>();
     ThemeProvider themeProvider = context.watch<ThemeProvider>();
     AppLocalizations lang = AppLocalizations.of(context)!;
+
+    
     return Scaffold(
       body: SafeArea(
         child: Padding(

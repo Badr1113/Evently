@@ -8,15 +8,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PrefsManager.init();
-  
-await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     MultiProvider(
@@ -34,13 +33,22 @@ await Firebase.initializeApp(
 }
 
 class Evently extends StatelessWidget {
+  String getRoute() {
+    bool firstTime = PrefsManager.getFirstTimekey ?? true;
+    if (firstTime) {
+      return RoutesManager.initRout;
+    } else {
+      return RoutesManager.loginScreen;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
     LangProvider langProvider = Provider.of<LangProvider>(context);
     return MaterialApp(
       routes: RoutesManager.routes,
-      initialRoute: RoutesManager.initRout,
+      initialRoute: getRoute(),
       theme: ThemeManager.light,
       darkTheme: ThemeManager.dark,
       themeMode: themeProvider.currentTheme,

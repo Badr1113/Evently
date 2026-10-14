@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PrefsManager {
   static String _themeKey = "storedTheme";
   static String _langKey = "storedLang";
+  static String _onbordingKey = "onbordingKey";
   static late SharedPreferences _prefs;
 
   static Future<void> init() async {
@@ -18,11 +19,12 @@ class PrefsManager {
     }
   }
 
-  static ThemeMode? get getTheme { // 3 paths Light or dark or null
+  static ThemeMode? get getTheme {
+    // 3 paths Light or dark or null
     String? savedTheme = _prefs.getString(_themeKey);
     if (savedTheme == "Light") {
       return ThemeMode.light;
-    } else if(savedTheme == "Dark") {
+    } else if (savedTheme == "Dark") {
       return ThemeMode.dark;
     }
   }
@@ -42,5 +44,15 @@ class PrefsManager {
     } else if (savedLang == "ar") {
       return Locale("ar");
     }
+  }
+
+  static void storeFirstTimeKey() {
+    if (_onbordingKey == false) return;
+    print("========================\nI Changed");
+    _prefs.setBool(_onbordingKey, false);
+  }
+
+  static bool? get getFirstTimekey {
+    return _prefs.getBool(_onbordingKey);
   }
 }
