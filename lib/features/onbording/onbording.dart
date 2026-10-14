@@ -1,28 +1,69 @@
 import 'package:evently/core/Models/onbording_model.dart';
+import 'package:evently/core/Widget/custom_elevated_button.dart';
+import 'package:evently/core/provider/lang_provider.dart';
+import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
+import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class onbording extends StatelessWidget {
-  const new({super.key});
+class Onbording extends StatefulWidget {
+  @override
+  State<Onbording> createState() => _OnbordingState();
+}
+
+class _OnbordingState extends State<Onbording> {
+  late PageController _pageController;
+
+  // !dont forget to make it stafful widget
+  int pageIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = context.watch<ThemeProvider>();
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Image.asset(AssetsManager.main_logo_light, height: 27),
-              SizedBox(height: 24),
-              Expanded(
-                child: PageView.builder(
-                  itemBuilder: (context, index) {
-                    return Column(
+        child: Column(
+          children: [
+            Image.asset(
+              themeProvider.isDark
+                  ? AssetsManager.main_logo_dark
+                  : AssetsManager.main_logo_light,
+              height: 27,
+            ),
+            SizedBox(height: 16),
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (value) {
+                  setState(() {
+                    pageIndex = value;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
                       children: [
                         Image.asset(
-                          OnbordingModel.onbordingScreens[index].lightimagePath,
+                          themeProvider.isDark
+                              ? OnbordingModel
+                                    .onbordingScreens[index]
+                                    .darkimagePath
+                              : OnbordingModel
+                                    .onbordingScreens[index]
+                                    .lightimagePath,
                           height: 343,
                           fit: BoxFit.fill,
                         ),
@@ -40,37 +81,31 @@ class onbording extends StatelessWidget {
                               .copyWith(fontSize: 16),
                         ),
                         SizedBox(height: 16),
-                        index == 0
-                            ? Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Language",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium,
-                                      ),
-
-                                      // Container(
-                                      //   decoration: BoxDecoration(
-                                      //     color: ,
-                                      //   ),
-                                      // )
-                                    ],
-                                  ),
-                                  Row(children: []),
-                                ],
-                              )
-                            : SizedBox(),
                       ],
-                    );
-                  },
-                  itemCount: OnbordingModel.onbordingScreens.length,
-                ),
+                    ),
+                  );
+                },
+                itemCount: OnbordingModel.onbordingScreens.length,
               ),
-            ],
-          ),
+            ),
+            pageIndex == 2
+                ? CustomElevatedButton(
+                    hintText: "Get started",
+                    onPressed: () {
+                      Navigator.pushNamed(context, RoutesManager.loginScreen);
+                    },
+                  )
+                : CustomElevatedButton(
+                    hintText: "Next",
+                    onPressed: () {
+                      _pageController.nextPage(
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.linear,
+                      );
+                    },
+                  ),
+            SizedBox(height: 30),
+          ],
         ),
       ),
     );

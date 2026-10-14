@@ -15,12 +15,6 @@ class OnbordingModel {
 
   static final List<OnbordingModel> onbordingScreens = [
     OnbordingModel(
-      lightimagePath: AssetsManager.onbordinglight1,
-      darkimagePath: AssetsManager.onbordingdark1,
-      title: "Personalize Your Experience",
-      description: "Choose your preferred theme andlanguage to get started with a comfortable, tailored experience that suits your style.",
-    ),
-    OnbordingModel(
       lightimagePath: AssetsManager.onbordinglight2,
       darkimagePath: AssetsManager.onbordingdark2,
       title: "Find Events That Inspire You",
