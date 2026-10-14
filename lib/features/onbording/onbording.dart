@@ -4,6 +4,7 @@ import 'package:evently/core/provider/lang_provider.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,7 @@ class _OnbordingState extends State<Onbording> {
   @override
   Widget build(BuildContext context) {
     ThemeProvider themeProvider = context.watch<ThemeProvider>();
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -69,13 +71,25 @@ class _OnbordingState extends State<Onbording> {
                         ),
                         SizedBox(height: 24),
                         Text(
-                          OnbordingModel.onbordingScreens[index].title,
+                          switch (index) {
+                            0 => lang.onbording_title_1,
+                            1 => lang.onbording_title_2,
+                            2 => lang.onbording_title_3,
+                            3 => lang.onbording_title_4,
+                            _ => lang.onbording_title_1,
+                          },
                           textAlign: TextAlign.start,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         SizedBox(height: 8),
                         Text(
-                          OnbordingModel.onbordingScreens[index].description,
+                        switch (index) {
+                            0 => lang.description_onbording_1,
+                            1 => lang.description_onbording_2,
+                            2 => lang.description_onbording_3,
+                            3 => lang.description_onbording_4,
+                            _ => lang.description_onbording_1,
+                          },
                           textAlign: TextAlign.start,
                           style: Theme.of(context).textTheme.labelSmall!
                               .copyWith(fontSize: 16),
@@ -90,13 +104,13 @@ class _OnbordingState extends State<Onbording> {
             ),
             pageIndex == 2
                 ? CustomElevatedButton(
-                    hintText: "Get started",
+                    hintText: lang.get_started,
                     onPressed: () {
                       Navigator.pushNamed(context, RoutesManager.loginScreen);
                     },
                   )
                 : CustomElevatedButton(
-                    hintText: "Next",
+                    hintText: lang.next,
                     onPressed: () {
                       _pageController.nextPage(
                         duration: Duration(milliseconds: 500),

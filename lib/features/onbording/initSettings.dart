@@ -6,6 +6,7 @@ import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,7 @@ class initSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     LangProvider langProvider = context.watch<LangProvider>();
     ThemeProvider themeProvider = context.watch<ThemeProvider>();
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -52,13 +54,13 @@ class initSettings extends StatelessWidget {
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "Personalize Your Experience",
+                    lang.onbording_title_1,
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Choose your preferred theme andlanguage to get started with a comfortable, tailored experience that suits your style.",
+                    lang.description_onbording_1,
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.labelSmall!
                         .copyWith(fontSize: 16),
@@ -70,7 +72,7 @@ class initSettings extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "Language",
+                            lang.language,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                           Spacer(),
@@ -138,7 +140,7 @@ class initSettings extends StatelessWidget {
                                     : null,
                               ),
                               child: Text(
-                                "Arabic",
+                                "العربية",
                                 style: TextStyle(
                                   color: langProvider.isEN
                                       ? Theme.of(context).colorScheme.tertiary
@@ -155,7 +157,7 @@ class initSettings extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "Theme",
+                            lang.theme,
                             style: Theme.of(context).textTheme.labelMedium,
                           ),
                           Spacer(),
@@ -232,7 +234,7 @@ class initSettings extends StatelessWidget {
                       ),
                       SizedBox(height: 54),
                       CustomElevatedButton(
-                        hintText: "Let’s start",
+                        hintText: lang.lets_start,
                         onPressed: () {
                           Navigator.pushNamed(
                             context,

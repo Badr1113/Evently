@@ -134,4 +134,44 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get choose_time => 'اختر الوقت';
+
+  @override
+  String get onbording_title_1 => 'خصص تجربتك';
+
+  @override
+  String get onbording_title_2 => 'اكتشف فعاليات تلهمك';
+
+  @override
+  String get onbording_title_3 => 'تخطيط فعاليات بدون عناء';
+
+  @override
+  String get onbording_title_4 => 'تواصل مع الأصدقاء وشارك اللحظات';
+
+  @override
+  String get description_onbording_1 =>
+      'اختر السمة واللغة المفضلة لديك للبدء بتجربة مريحة ومخصصة تناسب أسلوبك.';
+
+  @override
+  String get description_onbording_2 =>
+      'انغمس في عالم من الفعاليات المصممة لتناسب اهتماماتك الفريدة. سواء كنت تحب الموسيقى الحية، أو ورش الأعمال الفنية، أو التواصل المهني، أو مجرد اكتشاف تجارب جديدة، فهناك شيء يناسب الجميع. ستساعدك توصياتنا المختارة على الاستكشاف والتواصل والاستفادة القصوى من كل فرصة حولك.';
+
+  @override
+  String get description_onbording_3 =>
+      'تخلص من عناء تنظيم الفعاليات باستخدام أدوات التخطيط المتكاملة في مكان واحد. من إعداد الدعوات وإدارة الردود إلى جدولة التذكيرات وتنظيم التفاصيل، نحن هنا لدعمك. خطط بسهولة وركز على ما يهم — إنشاء تجربة لا تُنسى لك ولضيوفك.';
+
+  @override
+  String get description_onbording_4 =>
+      'اجعل كل فعالية لا تُنسى بمشاركتها مع الآخرين. تسمح لك منصتنا بدعوة الأصدقاء والبقاء على اطلاع الجميع والاحتفال باللحظات معًا. التقط وشارك الحماس مع شبكتك حتى تسترجع أبرز اللحظات وتحتفظ بالذكريات.';
+
+  @override
+  String get theme => 'السمة';
+
+  @override
+  String get lets_start => 'لنبدأ';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get get_started => 'ابدأ الآن';
 }
