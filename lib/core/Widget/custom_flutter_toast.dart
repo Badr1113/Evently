@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 abstract class CustomFlutterToast {
   static Future<bool?> showToast(BuildContext context,String msg) {
     return Fluttertoast.showToast(
+      toastLength: Toast.LENGTH_LONG,
       msg: msg,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: Theme.of(context).colorScheme.onSurface,

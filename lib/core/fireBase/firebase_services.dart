@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class FirebaseServices {
   static String _dbUsersKey = "Users";
@@ -47,9 +48,8 @@ abstract class FirebaseServices {
     DocumentSnapshot<UserModel> documentSnapshot = await usersDocument.get();
     return documentSnapshot.data()!;
   }
-}
- 
-/*
+
+  /*
   * This is old 
   * We Upgrade It
  static Future<void> addUserToFireStore(UserModel user) async {
@@ -79,3 +79,18 @@ abstract class FirebaseServices {
 }
 
 */
+
+  static Future<UserCredential> googleAuth() async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn.instance.authenticate();
+    GoogleSignInAuthentication googleAuth = googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+    );
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  static Future<void> logout() async{
+    await  GoogleSignIn.instance.signOut();
+    await  FirebaseAuth.instance.signOut();
+  }
+}

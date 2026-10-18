@@ -7,9 +7,11 @@ import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
+import 'package:evently/features/auth/widgets/google_login_widget.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -206,30 +208,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
               SizedBox(height: 24),
-              Container(
-                height: 48,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  borderRadius: BorderRadius.circular(16),
-                  border: BoxBorder.all(
-                    color: Theme.of(context).colorScheme.surfaceContainer,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      AssetsManager.googleLogo,
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 16),
-                    Text(
-                      "Sign up with Google",
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  ],
-                ),
+              GoogleWidget(
+                label: "Sign up with Google",
+                onTap: () async {
+                  await _createAccountWithGoogle();
+                },
               ),
             ],
           ),
@@ -286,6 +269,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } on FirebaseException catch (e) {
       if (e.code == 'unavailable') {
         await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(
+          context,
+          "Firestore/Firebase service is currently unavailable. You might be offline.",
+        );
+      } else {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(context, "Firebase Error: ${e.message}");
+      }
+    } catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      CustomFlutterToast.showToast(context, "Firebase Error : ${e}");
+    }
+  }
+
+  Future<void> _createAccountWithGoogle() async {
+    try {
+      CustomDialog.showCustomDialog(context);
+      UserCredential userCredential = await FirebaseServices.googleAuth();
+      if (userCredential.additionalUserInfo!.isNewUser == false) {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(
+          context,
+          "You already Have Account\n Please login",
+        );
+        Navigator.pushReplacementNamed(context, RoutesManager.loginScreen);
+        return;
+      }
+      UserModel user = UserModel(
+        id: userCredential.user!.uid,
+        name: userCredential.user!.displayName!,
+        email: userCredential.user!.email!,
+      );
+      await FirebaseServices.addUserToFireStore(user);
+      await CustomDialog.waitAndPop(context, 2);
+      CustomFlutterToast.showToast(context, "Accont Has Been Created");
+      Navigator.pushReplacementNamed(context, RoutesManager.loginScreen);
+    } on GoogleSignInException catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      if (e.code.toString() == "GoogleSignInExceptionCode.canceled") {
+        CustomFlutterToast.showToast(context, "sign up process error");
+      }
+    } on FirebaseException catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      if (e.code == 'unavailable') {
         CustomFlutterToast.showToast(
           context,
           "Firestore/Firebase service is currently unavailable. You might be offline.",

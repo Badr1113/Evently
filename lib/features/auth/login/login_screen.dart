@@ -7,9 +7,11 @@ import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
+import 'package:evently/features/auth/widgets/google_login_widget.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const new({super.key});
@@ -169,30 +171,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     SizedBox(height: 24),
-                    Container(
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        borderRadius: BorderRadius.circular(16),
-                        border: BoxBorder.all(
-                          color: Theme.of(context).colorScheme.surfaceContainer,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            AssetsManager.googleLogo,
-                            height: 24,
-                            width: 24,
-                          ),
-                          SizedBox(width: 16),
-                          Text(
-                            "Login with Google",
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                        ],
-                      ),
+                    GoogleWidget(
+                      label: "Login with Google",
+                      onTap: () async {
+                        await _loginWithGoogle();
+                      },
                     ),
                   ],
                 ),
@@ -251,4 +234,57 @@ class _LoginScreenState extends State<LoginScreen> {
       CustomFlutterToast.showToast(context, "Firebase Error: ${e}");
     }
   }
+
+  Future<void> _loginWithGoogle() async {
+    try {
+      CustomDialog.showCustomDialog(context);
+      UserCredential userCredential = await FirebaseServices.googleAuth();
+      debugPrint("==============\n");
+      final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
+      if (isNewUser) {
+        await userCredential.user!.delete();
+        await GoogleSignIn.instance.signOut();
+        await FirebaseAuth.instance.signOut();
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(
+          context,
+          "You Dont Have Account\n Please SignUp",
+        );
+        Navigator.pushReplacementNamed(context, RoutesManager.registerScreen);
+        return;
+      }
+      debugPrint("==============\n ana Kamelt");
+      UserModel user = await FirebaseServices.getUserFromFirebase(
+        userCredential.user!.uid,
+      );
+      UserModel.userLogged = user;
+      await CustomDialog.waitAndPop(context, 2);
+      CustomFlutterToast.showToast(context, "Successful Login");
+      Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+    } on GoogleSignInException catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      if (e.code.toString() == "GoogleSignInExceptionCode.canceled") {
+        CustomFlutterToast.showToast(context, "sign up process error");
+      }
+    } on FirebaseException catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      if (e.code == 'unavailable') {
+        CustomFlutterToast.showToast(
+          context,
+          "Firestore/Firebase service is currently unavailable. You might be offline.",
+        );
+      } else {
+        await CustomDialog.waitAndPop(context, 2);
+        CustomFlutterToast.showToast(context, "Firebase Error: ${e.message}");
+      }
+    } catch (e) {
+      await CustomDialog.waitAndPop(context, 2);
+      CustomFlutterToast.showToast(context, "Firebase Error : ${e}");
+    }
+  }
 }
+
+
+
+
+// * و صور فيديو و سلمه 

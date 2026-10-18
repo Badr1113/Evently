@@ -1,12 +1,16 @@
 import 'package:evently/core/Models/user_model.dart';
+import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/provider/lang_provider.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
+import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/features/main_layout/profile_page/custom_box.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -78,7 +82,7 @@ class ProfilePage extends StatelessWidget {
                     langProvider.changeCurrentLan(Locale("en"));
                   } else {
                     langProvider.changeCurrentLan(Locale("ar"));
-                  } 
+                  }
                 },
               ),
             ),
@@ -86,7 +90,13 @@ class ProfilePage extends StatelessWidget {
             CustomBox(
               title: lang.logout,
               function: IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await FirebaseServices.logout();
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RoutesManager.loginScreen,
+                  );
+                },
                 icon: Icon(Icons.logout, color: ColorManager.red),
               ),
             ),
