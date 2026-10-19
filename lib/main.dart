@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -38,6 +39,15 @@ void main() async {
 }
 
 class Evently extends StatelessWidget {
+  String getRoute() {
+    bool firstTime = PrefsManager.getFirstTimekey ?? true;
+    if (firstTime) {
+      return RoutesManager.initRout;
+    } else {
+      return RoutesManager.loginScreen;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
@@ -45,7 +55,7 @@ class Evently extends StatelessWidget {
     return MaterialApp(
       title: "Evently",
       routes: RoutesManager.routes,
-      initialRoute: RoutesManager.loginScreen,
+      initialRoute: getRoute(),
       theme: ThemeManager.light,
       darkTheme: ThemeManager.dark,
       themeMode: themeProvider.currentTheme,

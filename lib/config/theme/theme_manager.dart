@@ -11,6 +11,7 @@ class ThemeManager {
       onSecondary: ColorManager.white,
       secondary: ColorManager.primaryBlue,
       surfaceContainer: ColorManager.offWhite,
+      tertiary: ColorManager.primaryBlue
     ),
     scaffoldBackgroundColor: ColorManager.background,
     primaryColor: ColorManager.white,
@@ -98,6 +99,7 @@ class ThemeManager {
       onSecondary: ColorManager.white,
       secondary: ColorManager.brightBlue,
       surfaceContainer: ColorManager.darkBlue,
+      tertiary: ColorManager.white
     ),
     scaffoldBackgroundColor: ColorManager.darkModeBackground,
     primaryColor: ColorManager.navyBlue,

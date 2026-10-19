@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 class LangProvider extends ChangeNotifier {
   Locale currentLan = PrefsManager.getLang ?? Locale("en");
+  
+  bool get isEN => currentLan == Locale("en");
 
   void changeCurrentLan(Locale lan) {
     if (currentLan == lan) return;
