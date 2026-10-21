@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently/core/Models/event_model.dart';
 import 'package:evently/core/Models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class FirebaseServices {
   static String _dbUsersKey = "Users";
+  static String _dbEventKey = "Events";
   static Future<UserCredential> createAccount(
     String email,
     String password,
@@ -34,19 +36,21 @@ abstract class FirebaseServices {
     return usersCollection;
   }
 
+  static CollectionReference<EventModel> get _getEventsCollection {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    CollectionReference<EventModel> eventsCollection = db
+        .collection(_dbEventKey)
+        .withConverter(
+          fromFirestore: (snapshot, _) => EventModel.fromJson(snapshot.data()!),
+          toFirestore: (event, _) => EventModel.toJson(event),
+        );
+    return eventsCollection;
+  }
+
   static Future<void> addUserToFireStore(UserModel user) async {
     CollectionReference<UserModel> usersCollection = _getUserColleciton;
     DocumentReference<UserModel> usersDocument = usersCollection.doc(user.id);
-
     await usersDocument.set(user);
-  }
-
-  static Future<UserModel> getUserFromFirebase(String userID) async {
-    CollectionReference<UserModel> usersCollection = _getUserColleciton;
-    DocumentReference<UserModel> usersDocument = usersCollection.doc(userID);
-
-    DocumentSnapshot<UserModel> documentSnapshot = await usersDocument.get();
-    return documentSnapshot.data()!;
   }
 
   /*
@@ -80,8 +84,31 @@ abstract class FirebaseServices {
 
 */
 
+  static Future<UserModel> getUserFromFireStore(String userID) async {
+    CollectionReference<UserModel> usersCollection = _getUserColleciton;
+    DocumentReference<UserModel> usersDocument = usersCollection.doc(userID);
+
+    DocumentSnapshot<UserModel> documentSnapshot = await usersDocument.get();
+    return documentSnapshot.data()!;
+  }
+
+  static Future<void> addEventToFireStore(EventModel event) async {
+    CollectionReference<EventModel> eventsCollection = _getEventsCollection;
+    DocumentReference<EventModel> eventDocument = eventsCollection.doc();
+    event.id = eventDocument.id;
+    await eventDocument.set(event);
+  }
+
+  static Future<EventModel> getEventFromFireStore() async {
+    CollectionReference<EventModel> eventsCollection = _getEventsCollection;
+    DocumentReference<EventModel> eventDocument = eventsCollection.doc();
+    DocumentSnapshot<EventModel> eventSnapshot = await eventDocument.get();
+    return eventSnapshot.data()!;
+  }
+
   static Future<UserCredential> googleAuth() async {
-    GoogleSignInAccount? googleUser = await GoogleSignIn.instance.authenticate();
+    GoogleSignInAccount? googleUser = await GoogleSignIn.instance
+        .authenticate();
     GoogleSignInAuthentication googleAuth = googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
@@ -89,8 +116,8 @@ abstract class FirebaseServices {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  static Future<void> logout() async{
-    await  GoogleSignIn.instance.signOut();
-    await  FirebaseAuth.instance.signOut();
+  static Future<void> logout() async {
+    await GoogleSignIn.instance.signOut();
+    await FirebaseAuth.instance.signOut();
   }
 }

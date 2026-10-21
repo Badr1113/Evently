@@ -209,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               SizedBox(height: 24),
               GoogleWidget(
-                label: "Sign up with Google",
+                label: lang.sign_up_with_google,
                 onTap: () async {
                   await _createAccountWithGoogle();
                 },

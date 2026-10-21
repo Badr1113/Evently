@@ -50,14 +50,12 @@ class _FavoritePageState extends State<FavoritePage> {
                 itemBuilder: (BuildContext context, int index) {
                   return EventItem(
                     event: EventModel(
+                      ownerId: "",
                       id: "1",
                       category: CategoryModel.categories[1],
                       title: "This Is Birthday Party",
                       description: "Event Description",
                       eventDate: DateTime.now(),
-                      eventTime: TimeOfDay.now(),
-                      imagePathLight: AssetsManager.lightSportImage,
-                      imagePathDark: AssetsManager.darkSportImage,
                     ),
                   );
                 },

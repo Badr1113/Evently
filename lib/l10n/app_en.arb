@@ -52,5 +52,8 @@
     "theme":"Theme",
     "lets_start":"Let’s start",
     "next":"Next",
-    "get_started":"Get started"
+    "get_started":"Get started",
+    "login_with_google":"Login with Google",
+    "sign_up_with_google":"Sign up with Google",
+    "event_created" : "Event Created"
 }

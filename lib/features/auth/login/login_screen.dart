@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -61,14 +61,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SizedBox(height: 48),
                     Text(
-                      appLocalizations.login_to_your_account,
+                      lang.login_to_your_account,
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     SizedBox(height: 24),
                     CustomOutlinedTextFeild(
                       controller: emailController,
-                      hintText: appLocalizations.enter_your_email,
+                      hintText: lang.enter_your_email,
                       prefixIcon: Icon(Icons.mail_outline),
                       validator: (email) {
                         RegExp emailRegExp = RegExp(
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 16),
                     CustomOutlinedTextFeild(
                       controller: passwordController,
-                      hintText: appLocalizations.enter_your_password,
+                      hintText: lang.enter_your_password,
                       prefixIcon: Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         onPressed: () {},
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 8),
                     CustomTextButton(
-                      hintText: "${appLocalizations.forget_password}؟",
+                      hintText: "${lang.forget_password}؟",
                       onTap: () {
                         Navigator.pushNamed(
                           context,
@@ -120,18 +120,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 48),
                     CustomElevatedButton(
                       onPressed: _login,
-                      hintText: appLocalizations.login,
+                      hintText: lang.login,
                     ),
                     SizedBox(height: 48),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          appLocalizations.dont_have_an_account,
+                          lang.dont_have_an_account,
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                         CustomTextButton(
-                          hintText: appLocalizations.sign_up,
+                          hintText: lang.sign_up,
                           onTap: () {
                             Navigator.pushReplacementNamed(
                               context,
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Text(
-                          appLocalizations.or,
+                          lang.or,
                           style: Theme.of(context).textTheme.displaySmall!
                               .copyWith(
                                 decoration: TextDecoration.none,
@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 24),
                     GoogleWidget(
-                      label: "Login with Google",
+                      label: lang.login_with_google,
                       onTap: () async {
                         await _loginWithGoogle();
                       },
@@ -197,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
         emailController.text,
         passwordController.text,
       );
-      UserModel user = await FirebaseServices.getUserFromFirebase(
+      UserModel user = await FirebaseServices.getUserFromFireStore(
         userCredential.user!.uid,
       );
       UserModel.userLogged = user;
@@ -254,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
       debugPrint("==============\n ana Kamelt");
-      UserModel user = await FirebaseServices.getUserFromFirebase(
+      UserModel user = await FirebaseServices.getUserFromFireStore(
         userCredential.user!.uid,
       );
       UserModel.userLogged = user;

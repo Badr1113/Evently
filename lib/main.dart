@@ -1,15 +1,17 @@
 import 'package:evently/config/theme/theme_manager.dart';
+import 'package:evently/core/Models/user_model.dart';
+import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/local_storage/prefs_manager.dart';
 import 'package:evently/core/provider/lang_provider.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-
 
 import 'firebase_options.dart';
 
@@ -22,6 +24,12 @@ void main() async {
   await GoogleSignIn.instance.initialize(
     serverClientId: "651167476051-kf9ar4v9d41442uvkmjv0r3ki8m2qmqu.apps.googleusercontent.com",
   );
+
+  if (FirebaseAuth.instance.currentUser != null) {
+    UserModel.userLogged = await FirebaseServices.getUserFromFireStore(
+      FirebaseAuth.instance.currentUser!.uid,
+    );
+  }
 
   runApp(
     MultiProvider(
@@ -43,8 +51,10 @@ class Evently extends StatelessWidget {
     bool firstTime = PrefsManager.getFirstTimekey ?? true;
     if (firstTime) {
       return RoutesManager.initRout;
-    } else {
+    } else if (FirebaseAuth.instance.currentUser == null) {
       return RoutesManager.loginScreen;
+    } else {
+      return RoutesManager.mainLayout;
     }
   }
 

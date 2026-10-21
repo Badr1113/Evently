@@ -23,4 +23,19 @@ class AssetsManager {
   static const String onbordingdark4 =
       "assets/images/onbording_images/onbording_screen_4_dark.png";
   static const String googleLogo = "assets/images/google_logo.png";
+  static const String darkBirthdayImage =
+      "assets/images/birthday_image_dark.png";
+  static const String lightBirthdayImage =
+      "assets/images/birthday_image_light.png";
+  static const String lightBookclubImage =
+      "assets/images/bookclub_image_light.png";
+  static const String darkBookclubImage =
+      "assets/images/bookclub_image_dark.png";
+  static const String darkExhibitionImage =
+      "assets/images/exhibition_image_dark.png";
+  static const String lightExhibitionImage =
+      "assets/images/exhibition_image_light.png";
+  static const String lightMeetingImage =
+      "assets/images/meeting_image_light.png";
+  static const String darkMeetingImage = "assets/images/meeting_image_dark.png";
 }

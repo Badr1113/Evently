@@ -4,8 +4,9 @@ import 'package:evently/core/sourses/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
-  CustomTabBar({required this.categories});
+  CustomTabBar({required this.categories, this.getCategory});
   List<CategoryModel> categories;
+  void Function(CategoryModel)? getCategory;
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
@@ -21,6 +22,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
         onTap: (tabIndex) {
           setState(() {
             selectedTab = tabIndex;
+            widget.getCategory!(CategoryModel.categories[selectedTab]);
           });
         },
         tabAlignment: TabAlignment.start,

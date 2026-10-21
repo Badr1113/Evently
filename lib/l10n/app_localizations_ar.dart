@@ -174,4 +174,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get get_started => 'ابدأ الآن';
+
+  @override
+  String get login_with_google => 'تسجيل الدخول باستخدام Google';
+
+  @override
+  String get sign_up_with_google => 'إنشاء حساب باستخدام Google';
+
+  @override
+  String get event_created => 'تم إنشاء الفعالية';
 }

@@ -73,11 +73,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 24),
             CustomTabBar(
               categories: [
-                CategoryModel(
-                  id: "0",
-                  label: "All",
-                  icon: Icons.square,
-                ),
+                CategoryModel(id: "0", label: "All", icon: Icons.square),
                 ...CategoryModel.categories,
               ],
             ),
@@ -87,14 +83,12 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (BuildContext context, int index) {
                   return EventItem(
                     event: EventModel(
+                      ownerId: "",
                       id: "1",
-                      imagePathLight: AssetsManager.lightSportImage,
-                      imagePathDark: AssetsManager.darkSportImage,
-                      category: CategoryModel.categories[1],
+                      category: CategoryModel.categories[2],
                       title: "This Is Birthday Party",
                       description: "Event Description",
                       eventDate: DateTime.now(),
-                      eventTime: TimeOfDay.now(),
                     ),
                   );
                 },

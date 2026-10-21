@@ -52,5 +52,8 @@
     "theme":"السمة",
     "lets_start":"لنبدأ",
     "next":"التالي",
-    "get_started":"ابدأ الآن"
+    "get_started":"ابدأ الآن",
+    "login_with_google":"تسجيل الدخول باستخدام Google",
+    "sign_up_with_google":"إنشاء حساب باستخدام Google",
+    "event_created" : "تم إنشاء الفعالية"
 }

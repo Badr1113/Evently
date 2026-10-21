@@ -1,12 +1,18 @@
 import 'package:evently/core/Models/category_model.dart';
+import 'package:evently/core/Models/event_model.dart';
+import 'package:evently/core/Models/user_model.dart';
+import 'package:evently/core/Widget/custom_dialog.dart';
 import 'package:evently/core/Widget/custom_elevated_button.dart';
+import 'package:evently/core/Widget/custom_flutter_toast.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar.dart';
 import 'package:evently/core/extintions/date_extin.dart';
+import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,8 +40,9 @@ class _AddEventScreenState extends State<AddEventScreen> {
     super.dispose();
   }
 
-  DateTime? eventDate;
-  TimeOfDay? eventTime; // متنساش لما تربط ال Fire base انك تظبته وتخلي الوقت و التاريخ في متغير واحد من نوع وهو Date Time
+  DateTime? eventDateTime;
+
+  CategoryModel selectedCategory = CategoryModel.categories[0];
   @override
   Widget build(BuildContext context) {
     AppLocalizations lang = AppLocalizations.of(context)!;
@@ -59,13 +66,20 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
                   themeProvider.isDark
-                      ? AssetsManager.darkSportImage
-                      : AssetsManager.lightSportImage,
+                      ? selectedCategory.darkImagePath!
+                      : selectedCategory.lightImagePath!,
                 ),
               ),
             ),
             SizedBox(height: 16),
-            CustomTabBar(categories: CategoryModel.categories),
+            CustomTabBar(
+              categories: CategoryModel.categories,
+              getCategory: (category) {
+                setState(() {
+                  selectedCategory = category;
+                });
+              },
+            ),
             SizedBox(height: 16),
             Text(
               lang.title,
@@ -96,9 +110,9 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 Icon(Icons.date_range),
                 SizedBox(width: 8),
                 Text(
-                  eventDate == null
+                  eventDateTime == null
                       ? lang.choose_date
-                      : eventDate!.toFormattedDate2.toString(),
+                      : eventDateTime!.toFormattedDate2.toString(),
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.titleLarge!
                       .copyWith(fontSize: 16),
@@ -107,7 +121,11 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 CustomTextButton(
                   hintText: lang.choose_date,
                   onTap: () async {
-                    eventDate =
+                    TimeOfDay eventTime = TimeOfDay(
+                      hour: eventDateTime?.hour ?? 00,
+                      minute: eventDateTime?.minute ?? 00,
+                    );
+                    eventDateTime =
                         await showDatePicker(
                           context: context,
                           firstDate: DateTime.now(),
@@ -115,6 +133,13 @@ class _AddEventScreenState extends State<AddEventScreen> {
                           initialDate: DateTime.now(),
                         ) ??
                         DateTime.now();
+                    eventDateTime = eventDateTime = DateTime(
+                      eventDateTime!.year,
+                      eventDateTime!.month,
+                      eventDateTime!.day,
+                      eventTime.hour,
+                      eventTime.minute,
+                    );
                     setState(() {});
                   },
                 ),
@@ -126,9 +151,9 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 Icon(Icons.av_timer),
                 SizedBox(width: 8),
                 Text(
-                  eventTime == null
+                  eventDateTime == null
                       ? lang.event_time
-                      : eventTime!.format(context).toString(),
+                      : eventDateTime!.toFormattedTime,
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.titleLarge!
                       .copyWith(fontSize: 16),
@@ -137,23 +162,52 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 CustomTextButton(
                   hintText: lang.choose_time,
                   onTap: () async {
-                    eventTime =
+                    TimeOfDay eventTime =
                         await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay.now(),
                         ) ??
                         TimeOfDay.now();
+                    eventDateTime = DateTime(
+                      eventDateTime!.year,
+                      eventDateTime!.month,
+                      eventDateTime!.day,
+                      eventTime.hour,
+                      eventTime.minute,
+                    );
                     setState(() {});
                   },
                 ),
               ],
             ),
             Spacer(),
-            CustomElevatedButton(hintText: lang.add_event, onPressed: () {}),
+            CustomElevatedButton(
+              hintText: lang.add_event,
+              onPressed: () {
+                _onPress(lang);
+              },
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void _onPress(AppLocalizations lang) async {
+    CustomDialog.showCustomDialog(context);
+    await FirebaseServices.addEventToFireStore(
+      EventModel(
+        ownerId: UserModel.userLogged!.id,
+        id: "",
+        category: selectedCategory,
+        title: eventTitleController.text,
+        description: eventDescriptionController.text,
+        eventDate: eventDateTime!,
+      ),
+    );
+    await CustomDialog.waitAndPop(context, 2);
+    Navigator.pop(context);
+    CustomFlutterToast.showToast(context, lang.event_created);
   }
 
   AppBar _appBar(AppLocalizations lang) {

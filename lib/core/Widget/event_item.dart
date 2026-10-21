@@ -30,7 +30,9 @@ class EventItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(16),
             child: Image.asset(
-              themeProvider.isDark ? event.imagePathDark : event.imagePathLight,
+              themeProvider.isDark
+                  ? event.category.darkImagePath!
+                  : event.category.lightImagePath!,
               fit: BoxFit.fill,
             ),
           ),

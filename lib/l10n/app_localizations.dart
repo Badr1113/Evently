@@ -421,6 +421,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get started'**
   String get get_started;
+
+  /// No description provided for @login_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with Google'**
+  String get login_with_google;
+
+  /// No description provided for @sign_up_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up with Google'**
+  String get sign_up_with_google;
+
+  /// No description provided for @event_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Created'**
+  String get event_created;
 }
 
 class _AppLocalizationsDelegate
