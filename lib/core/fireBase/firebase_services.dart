@@ -99,11 +99,16 @@ abstract class FirebaseServices {
     await eventDocument.set(event);
   }
 
-  static Future<EventModel> getEventFromFireStore() async {
+  static Stream<List<EventModel>> getEventsRealTimeFromFireStore() async* {
     CollectionReference<EventModel> eventsCollection = _getEventsCollection;
-    DocumentReference<EventModel> eventDocument = eventsCollection.doc();
-    DocumentSnapshot<EventModel> eventSnapshot = await eventDocument.get();
-    return eventSnapshot.data()!;
+    Stream<QuerySnapshot<EventModel>> collectionSnapshots = eventsCollection
+        .snapshots();
+    Stream<List<EventModel>> events = collectionSnapshots.map(
+      (querySnapshot) => querySnapshot.docs
+          .map((documentSnapshot) => documentSnapshot.data())
+          .toList(),
+    );
+    yield* events;
   }
 
   static Future<UserCredential> googleAuth() async {

@@ -4,6 +4,7 @@ import 'package:evently/core/Models/user_model.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar.dart';
 import 'package:evently/core/Widget/custome_tab_bar/custom_tab_bar_item.dart';
 import 'package:evently/core/Widget/event_item.dart';
+import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/provider/lang_provider.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
@@ -78,25 +79,28 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(height: 24),
-            Expanded(
-              child: ListView.separated(
-                itemBuilder: (BuildContext context, int index) {
-                  return EventItem(
-                    event: EventModel(
-                      ownerId: "",
-                      id: "1",
-                      category: CategoryModel.categories[2],
-                      title: "This Is Birthday Party",
-                      description: "Event Description",
-                      eventDate: DateTime.now(),
-                    ),
-                  );
-                },
-                itemCount: 5,
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: 16);
-                },
-              ),
+            StreamBuilder(
+              stream: FirebaseServices.getEventsRealTimeFromFireStore(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  Center(child: Text(snapshot.error.toString()));
+                }
+                List<EventModel> events = snapshot.data ?? [];
+                return Expanded(
+                  child: ListView.separated(
+                    itemBuilder: (BuildContext context, int index) {
+                      return EventItem(event: events[index]);
+                    },
+                    itemCount: events.length,
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(height: 16);
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),

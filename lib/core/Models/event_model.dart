@@ -38,7 +38,7 @@ class EventModel {
       ),
       title: json["title"],
       description: json["description"],
-      eventDate: json["eventDate"],
+      eventDate: (json["eventDate"] as Timestamp).toDate(), // this is important to convert the timestamp to DateTime and down casting
     );
   }
 }
