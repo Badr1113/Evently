@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String selectedCategory = "-1";
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
@@ -73,8 +74,13 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 24),
             CustomTabBar(
+              getCategory: (category) {
+                setState(() {
+                  selectedCategory = category.id;
+                });
+              },
               categories: [
-                CategoryModel(id: "0", label: "All", icon: Icons.square),
+                CategoryModel(id: "-1", label: "All", icon: Icons.square),
                 ...CategoryModel.categories,
               ],
             ),
@@ -88,7 +94,13 @@ class _HomePageState extends State<HomePage> {
                 if (snapshot.hasError) {
                   Center(child: Text(snapshot.error.toString()));
                 }
-                List<EventModel> events = snapshot.data ?? [];
+                List<EventModel> allEvents = snapshot.data ?? [];
+                List<EventModel> events = allEvents.where((element) {
+                  if (selectedCategory == "-1") {
+                    return int.parse(element.category.id) >= 0;
+                  }
+                  return element.category.id == selectedCategory;
+                }).toList();
                 return Expanded(
                   child: ListView.separated(
                     itemBuilder: (BuildContext context, int index) {

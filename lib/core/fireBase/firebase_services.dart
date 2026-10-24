@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently/core/Models/category_model.dart';
 import 'package:evently/core/Models/event_model.dart';
 import 'package:evently/core/Models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';

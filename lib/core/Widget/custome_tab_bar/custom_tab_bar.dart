@@ -23,7 +23,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
           setState(() {
             selectedTab = tabIndex;
             if (widget.getCategory != null) {
-              widget.getCategory!(CategoryModel.categories[selectedTab]);
+              widget.getCategory!(widget.categories[selectedTab]);
             }
           });
         },
