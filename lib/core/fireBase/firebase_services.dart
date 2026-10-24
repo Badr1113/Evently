@@ -112,6 +112,15 @@ abstract class FirebaseServices {
     yield* events;
   }
 
+  static Future<void> updateListOfFevoritsEvents(UserModel user) async {
+    CollectionReference<UserModel> usersCollection = _getUserColleciton;
+    DocumentReference<UserModel> userDocument = usersCollection.doc(user.id);
+    await userDocument.update({
+      "favoriteEventsId": UserModel.userLogged!.favoriteEventsId,
+    });
+    UserModel.userLogged = await getUserFromFireStore(UserModel.userLogged!.id);
+  }
+
   static Future<UserCredential> googleAuth() async {
     GoogleSignInAccount? googleUser = await GoogleSignIn.instance
         .authenticate();

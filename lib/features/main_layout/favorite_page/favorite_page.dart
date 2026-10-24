@@ -1,7 +1,9 @@
 import 'package:evently/core/Models/category_model.dart';
 import 'package:evently/core/Models/event_model.dart';
+import 'package:evently/core/Models/user_model.dart';
 import 'package:evently/core/Widget/custom_outlined_text_feild.dart';
 import 'package:evently/core/Widget/event_item.dart';
+import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/l10n/app_localizations.dart';
@@ -46,22 +48,33 @@ class _FavoritePageState extends State<FavoritePage> {
             ),
             SizedBox(height: 16),
             Expanded(
-              child: ListView.separated(
-                itemBuilder: (BuildContext context, int index) {
-                  return EventItem(
-                    event: EventModel(
-                      ownerId: "",
-                      id: "1",
-                      category: CategoryModel.categories[1],
-                      title: "This Is Birthday Party",
-                      description: "Event Description",
-                      eventDate: DateTime.now(),
+              child: StreamBuilder(
+                stream: FirebaseServices.getEventsRealTimeFromFireStore(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    Center(child: Text(snapshot.error.toString()));
+                  }
+                  List<EventModel> allEvents = snapshot.data ?? [];
+                  final favoriteIds = UserModel.userLogged!.favoriteEventsId
+                      .toSet();
+                    // ! افهم جزئية ده من على كلود
+                  List<EventModel> events = allEvents
+                      .where((event) => favoriteIds.contains(event.id))
+                      .toList();
+                  return Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (BuildContext context, int index) {
+                        return EventItem(event: events[index]);
+                      },
+                      itemCount: events.length,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: 16);
+                      },
                     ),
                   );
-                },
-                itemCount: 5,
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: 16);
                 },
               ),
             ),

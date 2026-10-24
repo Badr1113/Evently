@@ -238,6 +238,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         id: userCredential.user!.uid,
         name: nameController.text,
         email: emailController.text,
+        favoriteEventsId: [],
       );
       await FirebaseServices.addUserToFireStore(user);
       await CustomDialog.waitAndPop(context, 2);
@@ -300,6 +301,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         id: userCredential.user!.uid,
         name: userCredential.user!.displayName!,
         email: userCredential.user!.email!,
+        favoriteEventsId: [],
       );
       await FirebaseServices.addUserToFireStore(user);
       await CustomDialog.waitAndPop(context, 2);

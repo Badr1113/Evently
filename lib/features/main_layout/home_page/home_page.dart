@@ -95,11 +95,11 @@ class _HomePageState extends State<HomePage> {
                   Center(child: Text(snapshot.error.toString()));
                 }
                 List<EventModel> allEvents = snapshot.data ?? [];
-                List<EventModel> events = allEvents.where((element) {
+                List<EventModel> events = allEvents.where((event) {
                   if (selectedCategory == "-1") {
-                    return int.parse(element.category.id) >= 0;
+                    return int.parse(event.category.id) >= 0;
                   }
-                  return element.category.id == selectedCategory;
+                  return event.category.id == selectedCategory;
                 }).toList();
                 return Expanded(
                   child: ListView.separated(
