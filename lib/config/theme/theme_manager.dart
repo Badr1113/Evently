@@ -11,7 +11,7 @@ class ThemeManager {
       onSecondary: ColorManager.white,
       secondary: ColorManager.primaryBlue,
       surfaceContainer: ColorManager.offWhite,
-      tertiary: ColorManager.primaryBlue
+      tertiary: ColorManager.primaryBlue,
     ),
     scaffoldBackgroundColor: ColorManager.background,
     primaryColor: ColorManager.white,
@@ -25,6 +25,11 @@ class ThemeManager {
       ),
     ),
     textTheme: TextTheme(
+      titleSmall: TextStyle(
+        fontSize: 16,
+        color: ColorManager.lightGray,
+        fontWeight: FontWeight.w500,
+      ),
       displaySmall: TextStyle(
         decoration: TextDecoration.underline,
         decorationColor: ColorManager.primaryBlue,
@@ -99,7 +104,7 @@ class ThemeManager {
       onSecondary: ColorManager.white,
       secondary: ColorManager.brightBlue,
       surfaceContainer: ColorManager.darkBlue,
-      tertiary: ColorManager.white
+      tertiary: ColorManager.white,
     ),
     scaffoldBackgroundColor: ColorManager.darkModeBackground,
     primaryColor: ColorManager.navyBlue,
@@ -110,6 +115,11 @@ class ThemeManager {
       titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
     ),
     textTheme: TextTheme(
+      titleSmall: TextStyle(
+        fontSize: 16,
+        color: ColorManager.white,
+        fontWeight: FontWeight.w500,
+      ),
       displaySmall: TextStyle(
         decoration: TextDecoration.underline,
         decorationColor: ColorManager.brightBlue,

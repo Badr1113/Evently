@@ -11,6 +11,10 @@ extension DateExtin on DateTime {
     return DateFormat("dd/M/yyyy").format(this);
   }
 
+  String get toFormattedDate3 {
+    return DateFormat("d MMMM").format(this);
+  }
+
   String get toFormattedTime {
     return DateFormat("jm").format(this);
   }

@@ -112,7 +112,15 @@ abstract class FirebaseServices {
     yield* events;
   }
 
-  static Future<void> updateListOfFevoritsEvents(UserModel user) async {
+  static Future<void> deleteEventFromFireStore(EventModel event) async {
+    CollectionReference<EventModel> eventsCollection = _getEventsCollection;
+    DocumentReference<EventModel> eventDocument = eventsCollection.doc(
+      event.id,
+    );
+    await eventDocument.delete();
+  }
+
+  static Future<void> updateListOfFavoritesEvents(UserModel user) async {
     CollectionReference<UserModel> usersCollection = _getUserColleciton;
     DocumentReference<UserModel> userDocument = usersCollection.doc(user.id);
     await userDocument.update({

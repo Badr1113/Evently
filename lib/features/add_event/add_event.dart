@@ -45,6 +45,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
   CategoryModel selectedCategory = CategoryModel.categories[0];
   @override
   Widget build(BuildContext context) {
+    EventModel? eventdetails =
+        ModalRoute.of(context)!.settings.arguments as EventModel;
     AppLocalizations lang = AppLocalizations.of(context)!;
     final themeProvider = context.watch<ThemeProvider>();
     return Scaffold(

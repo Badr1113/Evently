@@ -2,6 +2,7 @@ import 'package:evently/features/add_event/add_event.dart';
 import 'package:evently/features/auth/forget_password/forget_password.dart';
 import 'package:evently/features/auth/login/login_screen.dart';
 import 'package:evently/features/auth/register/register_screen.dart';
+import 'package:evently/features/main_layout/Widgets/event_details.dart';
 import 'package:evently/features/onbording/initSettings.dart';
 import 'package:evently/features/main_layout/main_layout.dart';
 import 'package:evently/features/onbording/onbording.dart';
@@ -15,6 +16,8 @@ class RoutesManager {
   static const forgetPasswordScreen = "/forgetPasswordScreen";
   static const mainLayout = "/mainLayout";
   static const addEventScreen = "/addEventScreen";
+  static const eventDetails = "/eventDetails";
+
   static Map<String, WidgetBuilder> routes = {
     initRout: (context) => initSettings(),
     onbordingScreens: (context) => Onbording(),
@@ -23,5 +26,6 @@ class RoutesManager {
     forgetPasswordScreen: (context) => ForgetPasswordScreen(),
     mainLayout: (context) => MainLayout(),
     addEventScreen: (context) => AddEventScreen(),
+    eventDetails: (context) => EventDetails(),
   };
 }

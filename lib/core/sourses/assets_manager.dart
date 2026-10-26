@@ -38,4 +38,7 @@ class AssetsManager {
   static const String lightMeetingImage =
       "assets/images/meeting_image_light.png";
   static const String darkMeetingImage = "assets/images/meeting_image_dark.png";
+  static const String calendarIcon = "assets/images/calendar-add.png";
+  static const String editIcon = "assets/images/edit.png";
+  static const String trashIcon = "assets/images/trash.png";
 }
