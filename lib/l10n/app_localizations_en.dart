@@ -183,4 +183,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get event_created => 'Event Created';
+
+  @override
+  String get event_details => 'Event Details';
+
+  @override
+  String get edit_event => 'Edit Event';
+
+  @override
+  String get update_event => 'Update Event';
+
+  @override
+  String get event_has_been_deleted => 'Event has been deleted';
+
+  @override
+  String get event_updated => 'Event Updated';
 }

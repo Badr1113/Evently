@@ -439,6 +439,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Event Created'**
   String get event_created;
+
+  /// No description provided for @event_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Details'**
+  String get event_details;
+
+  /// No description provided for @edit_event.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Event'**
+  String get edit_event;
+
+  /// No description provided for @update_event.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Event'**
+  String get update_event;
+
+  /// No description provided for @event_has_been_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Event has been deleted'**
+  String get event_has_been_deleted;
+
+  /// No description provided for @event_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Updated'**
+  String get event_updated;
 }
 
 class _AppLocalizationsDelegate

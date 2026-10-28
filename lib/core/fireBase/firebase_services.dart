@@ -129,6 +129,14 @@ abstract class FirebaseServices {
     UserModel.userLogged = await getUserFromFireStore(UserModel.userLogged!.id);
   }
 
+  static Future<void> updateEventsFirestore(EventModel event) async {
+    CollectionReference<EventModel> eventsCollection = _getEventsCollection;
+    DocumentReference<EventModel> eventDocument = eventsCollection.doc(
+      event.id,
+    );
+    await eventDocument.update(EventModel.toJson(event));
+  }
+
   static Future<UserCredential> googleAuth() async {
     GoogleSignInAccount? googleUser = await GoogleSignIn.instance
         .authenticate();

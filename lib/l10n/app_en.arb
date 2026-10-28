@@ -55,5 +55,10 @@
     "get_started":"Get started",
     "login_with_google":"Login with Google",
     "sign_up_with_google":"Sign up with Google",
-    "event_created" : "Event Created"
+    "event_created" : "Event Created",
+    "event_details" : "Event Details",
+    "edit_event" : "Edit Event",
+    "update_event" : "Update Event",
+    "event_has_been_deleted" : "Event has been deleted",
+    "event_updated":"Event Updated"
 }

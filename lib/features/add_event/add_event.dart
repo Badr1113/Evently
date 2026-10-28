@@ -11,6 +11,7 @@ import 'package:evently/core/fireBase/firebase_services.dart';
 import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/features/auth/widgets/custom_text_button.dart';
+import 'package:evently/features/main_layout/Widgets/event_details.dart';
 import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,18 @@ class AddEventScreen extends StatefulWidget {
 class _AddEventScreenState extends State<AddEventScreen> {
   late TextEditingController eventTitleController;
   late TextEditingController eventDescriptionController;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!isArgumentsTaken) {
+      EventModel? event =
+          ModalRoute.of(context)?.settings.arguments as EventModel?;
+      eventDetails = event;
+    }
+    configureEventDetails();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -41,12 +54,30 @@ class _AddEventScreenState extends State<AddEventScreen> {
   }
 
   DateTime? eventDateTime;
+  EventModel? eventDetails;
+  bool get isEditing => eventDetails != null;
+  bool isArgumentsTaken = false;
+  void configureEventDetails() {
+    if (eventDetails != null && !isArgumentsTaken) {
+      isArgumentsTaken = true;
+      selectedCategory = CategoryModel.categories.firstWhere(
+        (category) => category.id == eventDetails!.category.id,
+      );
+      eventTitleController.text = eventDetails!.title;
+      eventDescriptionController.text = eventDetails!.description;
+      eventDateTime = DateTime(
+        eventDetails!.eventDate.year,
+        eventDetails!.eventDate.month,
+        eventDetails!.eventDate.day,
+        eventDetails!.eventDate.hour,
+        eventDetails!.eventDate.minute,
+      );
+    }
+  }
 
   CategoryModel selectedCategory = CategoryModel.categories[0];
   @override
   Widget build(BuildContext context) {
-    EventModel? eventdetails =
-        ModalRoute.of(context)!.settings.arguments as EventModel;
     AppLocalizations lang = AppLocalizations.of(context)!;
     final themeProvider = context.watch<ThemeProvider>();
     return Scaffold(
@@ -81,6 +112,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   selectedCategory = category;
                 });
               },
+              initialIndex: int.parse(eventDetails?.category.id ?? "0"),
             ),
             SizedBox(height: 16),
             Text(
@@ -184,7 +216,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
             ),
             Spacer(),
             CustomElevatedButton(
-              hintText: lang.add_event,
+              hintText: isEditing ? lang.update_event : lang.add_event,
               onPressed: () {
                 _onPress(lang);
               },
@@ -197,22 +229,40 @@ class _AddEventScreenState extends State<AddEventScreen> {
 
   void _onPress(AppLocalizations lang) async {
     CustomDialog.showCustomDialog(context);
-    await FirebaseServices.addEventToFireStore(
-      EventModel(
-        ownerId: UserModel.userLogged!.id,
-        id: "",
-        category: selectedCategory,
-        title: eventTitleController.text,
-        description: eventDescriptionController.text,
-        eventDate: eventDateTime!,
-      ),
-    );
+    if (isEditing) {
+      await FirebaseServices.updateEventsFirestore(
+        EventModel(
+          ownerId: UserModel.userLogged!.id,
+          id: eventDetails!.id,
+          category: selectedCategory,
+          title: eventTitleController.text,
+          description: eventDescriptionController.text,
+          eventDate: eventDateTime!,
+        ),
+      );
+    } else {
+      await FirebaseServices.addEventToFireStore(
+        EventModel(
+          ownerId: UserModel.userLogged!.id,
+          id: "",
+          category: selectedCategory,
+          title: eventTitleController.text,
+          description: eventDescriptionController.text,
+          eventDate: eventDateTime!,
+        ),
+      );
+    }
     await CustomDialog.waitAndPop(context, 2);
     Navigator.pop(context);
-    CustomFlutterToast.showToast(context, lang.event_created);
+    isEditing
+        ? CustomFlutterToast.showToast(context, lang.event_updated)
+        : CustomFlutterToast.showToast(context, lang.event_created);
   }
 
   AppBar _appBar(AppLocalizations lang) {
-    return AppBar(title: Text(lang.add_event), centerTitle: true);
+    return AppBar(
+      title: Text(isEditing ? lang.edit_event : lang.add_event),
+      centerTitle: true,
+    );
   }
 }

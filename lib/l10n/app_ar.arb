@@ -55,5 +55,10 @@
     "get_started":"ابدأ الآن",
     "login_with_google":"تسجيل الدخول باستخدام Google",
     "sign_up_with_google":"إنشاء حساب باستخدام Google",
-    "event_created" : "تم إنشاء الفعالية"
+    "event_created" : "تم إنشاء الفعالية",
+    "event_details" : "تفاصيل الفعالية",
+    "edit_event" : "تعديل الفعالية",
+    "update_event" : "تحديث الفعالية",
+    "event_has_been_deleted" : "تم حذف الفعالية",
+    "event_updated":"تم تحديث الفعالية"
 }

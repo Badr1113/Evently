@@ -10,6 +10,7 @@ import 'package:evently/core/provider/theme_provider.dart';
 import 'package:evently/core/sourses/assets_manager.dart';
 import 'package:evently/core/sourses/color_manager.dart';
 import 'package:evently/core/sourses/routes_manager.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +23,11 @@ class EventDetails extends StatelessWidget {
     EventModel eventDetails =
         ModalRoute.of(context)!.settings.arguments as EventModel;
     ThemeProvider themeProvider = context.watch<ThemeProvider>();
+    AppLocalizations lang = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         actionsPadding: EdgeInsets.only(right: 8),
-        title: Text("Event Details"),
+        title: Text(lang.event_details),
         centerTitle: true,
         actions: eventDetails.ownerId == UserModel.userLogged!.id
             ? [
@@ -71,7 +73,7 @@ class EventDetails extends StatelessWidget {
                     Navigator.pop(context);
                     CustomFlutterToast.showToast(
                       context,
-                      "Event has been deleted",
+                      lang.event_has_been_deleted,
                     );
                   },
                   child: Padding(
@@ -163,7 +165,10 @@ class EventDetails extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            Text("Description", style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              lang.description,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(

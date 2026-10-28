@@ -4,20 +4,33 @@ import 'package:evently/core/sourses/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
-  CustomTabBar({required this.categories, this.getCategory});
+  CustomTabBar({
+    required this.categories,
+    this.getCategory,
+    this.initialIndex = 0,
+  });
   List<CategoryModel> categories;
   void Function(CategoryModel)? getCategory;
+  int initialIndex;
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
 }
 
 class _CustomTabBarState extends State<CustomTabBar> {
-  int selectedTab = 0;
+  late int selectedTab;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedTab = widget.initialIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: widget.categories.length,
+      initialIndex: widget.initialIndex,
       child: TabBar(
         onTap: (tabIndex) {
           setState(() {

@@ -183,4 +183,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get event_created => 'تم إنشاء الفعالية';
+
+  @override
+  String get event_details => 'تفاصيل الفعالية';
+
+  @override
+  String get edit_event => 'تعديل الفعالية';
+
+  @override
+  String get update_event => 'تحديث الفعالية';
+
+  @override
+  String get event_has_been_deleted => 'تم حذف الفعالية';
+
+  @override
+  String get event_updated => 'تم تحديث الفعالية';
 }
